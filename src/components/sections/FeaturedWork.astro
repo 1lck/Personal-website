@@ -1,0 +1,112 @@
+---
+import projects from "@/collections/featuredwork.json";
+import WorkCard from "@/components/cards/WorkCard.astro";
+import SectionHeader from "@/components/elements/SectionHeader.astro";
+import Button from "@/components/ui/Button.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  showAll?: boolean;
+  limit?: number; // 限制显示的项目数量
+}
+
+interface Project {
+  name: string;
+  description?: string;
+  image: string;
+  url: string;
+  tags?: string[];
+  video?: string;
+  isShow?: boolean;
+}
+
+const {
+  title = "Featured Work",
+  description = "A selection of projects I've worked on. From web applications to design systems, each project represents a unique challenge and learning experience.",
+  showAll = false,
+  limit
+} = Astro.props;
+
+// 获取项目列表
+let allProjects = projects as Project[];
+
+// 根据 limit 或 showAll 来控制显示数量
+if (limit !== undefined) {
+  // 如果指定了 limit，使用 limit
+  allProjects = projects.slice(0, limit) as Project[];
+} else if (!showAll) {
+  // 如果没有指定 limit，且 showAll 为 false，默认显示 6 个
+  allProjects = projects.slice(0, 6) as Project[];
+}
+// 如果 showAll 为 true 且没有 limit，显示所有项目
+
+// 前三个为特色项目（全宽）
+const featuredProjects = allProjects.slice(0, 3);
+
+// 其余为网格项目（两栏）
+const gridProjects = allProjects.slice(3);
+
+// 判断是否应该显示 "View All" 按钮
+const shouldShowViewAll = limit !== undefined
+  ? limit < projects.length
+  : !showAll && projects.length > 6;
+---
+
+<section class="py-16 md:py-16 md:pb-12">
+  <div class="site-container space-y-8 md:space-y-8">
+    <!-- 标题部分 -->
+    <SectionHeader title={title} description={description} />
+
+    <!-- 特色项目 - 全宽显示 -->
+    {featuredProjects.length > 0 && (
+      <div class="space-y-8 md:space-y-10" data-aos-delay="750" data-aos="fade-up-sm" data-aos-duration="1000" data-aos-once="true">
+        {featuredProjects
+          .filter(project => project.isShow !== false)
+          .map((project, index) => (
+            <WorkCard
+              name={project.name}
+              description={project.description}
+              image={project.image}
+              url={project.url}
+              tags={project.tags}
+              video={project.video}
+              isShow={project.isShow}
+              layout="featured"
+              index={index}
+            />
+          ))}
+      </div>
+    )}
+
+    <!-- 网格项目 - 两栏显示 -->
+    {gridProjects.length > 0 && (
+      <div class="grid gap-6 md:gap-8 md:grid-cols-2" data-aos-delay="150" data-aos="fade-up-sm" data-aos-duration="1000" data-aos-once="true">
+        {gridProjects
+          .filter(project => project.isShow !== false)
+          .map((project, index) => (
+            <WorkCard
+              name={project.name}
+              description={project.description}
+              image={project.image}
+              url={project.url}
+              tags={project.tags}
+              video={project.video}
+              isShow={project.isShow}
+              layout="grid"
+              index={index}
+            />
+          ))}
+      </div>
+    )}
+
+    <!-- See More 按钮 (可选) -->
+    {shouldShowViewAll && (
+      <div class="flex items-center justify-center pt-4">
+        <Button url="/works" className="w-full max-w-60">
+          See All Works
+        </Button>
+      </div>
+    )}
+  </div>
+</section>

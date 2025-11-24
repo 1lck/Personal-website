@@ -1,0 +1,61 @@
+{
+	"name": "astro-lichenkang-portfolio",
+	"type": "module",
+	"version": "1.0.0",
+	"description": "Li Chenkang's personal portfolio starter built with Astro, Tailwind, and Java-friendly tooling.",
+	"keywords": [
+		"astro",
+		"portfolio",
+		"designer",
+		"website",
+		"template",
+		"tailwindcss",
+		"blog",
+		"dark-mode",
+		"responsive"
+	],
+	"author": {
+		"name": "Li Chenkang",
+		"email": "hello@lichenkang.dev",
+		"url": "https://lichenkang.dev"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lichenkang/personal-hub.git"
+	},
+	"bugs": {
+		"url": "https://github.com/lichenkang/personal-hub/issues"
+	},
+	"homepage": "https://github.com/lichenkang/personal-hub#readme",
+	"license": "Apache-2.0",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro check && astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"check": "biome check --apply-unsafe ."
+	},
+	"devDependencies": {
+		"@astrojs/check": "^0.9.5",
+		"@biomejs/biome": "1.7.3",
+		"@tailwindcss/typography": "^0.5.13",
+		"@types/matter-js": "^0.20.2",
+		"astro": "^5.15.4",
+		"postcss": "^8.4.31",
+		"tailwindcss": "^4.1.14",
+		"typescript": "^5.4.5",
+		"vite": "^5.2.11"
+	},
+	"dependencies": {
+		"@astrojs/mdx": "^4.3.10",
+		"@astrojs/rss": "^4.0.13",
+		"@astrojs/sitemap": "^3.6.0",
+		"@lucide/astro": "^0.546.0",
+		"@tailwindcss/vite": "^4.1.14",
+		"aos": "^2.3.4",
+		"matter-js": "^0.20.0",
+		"motion": "^12.23.24",
+		"sharp": "^0.34.4"
+	}
+}

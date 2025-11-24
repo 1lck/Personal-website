@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import PostLayout from "@/layouts/PostLayout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import ActionBar from "@/components/widgets/ActionBar.astro";
+import SeparatorLine from "@/components/elements/SeparatorLine.astro";
+
+const workTitle = "Nova Valentines 3D Pack";
+const workDescription =  "Seasonal 3D Assets";
+const workTags = ["3D", "Resources", "Campaign"];
+
+// 手动导入图片
+import Img01 from "../../assets/work/free-3d-valentines-assets/01.jpg";
+import Img02 from "../../assets/work/free-3d-valentines-assets/02.jpg";
+import Img03 from "../../assets/work/free-3d-valentines-assets/03.jpg";
+import Img04 from "../../assets/work/free-3d-valentines-assets/04.jpg";
+const images = [Img01, Img02, Img03, Img04];
+
+import logoUrl from "../../assets/work/free-3d-valentines-assets/logo.png";
+---
+<PostLayout
+	title={workTitle}
+	description="Nova Valentines 3D Pack 是我为校媒活动打造的一套 3D 资源，适用于节日暖场、营销海报和网页互动。"
+	keywords="Nova Valentines, 3D Assets, Marketing Pack, Blender, Campaign"
+>
+	<div class="work article">
+		<main class="work-wrapper">
+				<PageHeader
+					title={workTitle}
+					tags={workTags}
+					className="mb-6 md:mb-8"
+				>
+				</PageHeader>
+			</section>
+			<div class="site-container m-auto">
+				<SeparatorLine />
+			</div>
+			<section class="article-content">
+				<div class="site-container mx-auto my-8 md:my-16 ">
+					<div>
+						<p>
+							这套 Nova Valentines 资源源于一次校园媒体中心的直播活动。我们需要统一的 3D 视觉语言来制作海报、开场动画和互动抽奖页面，于是我用 Blender 和 Figma 结合快速搭建了这一批资产。
+						</p>
+						<p>模型遵循统一的色彩与光照规范，同时提供高、低多边形两个版本，方便在网页或实时渲染场景中自由使用。为了让同学们上手更轻松，我准备了 GLB、PNG 以及背景透明的视频循环文件。</p>
+						<p>资源全部开源，可在校园项目、社交媒体内容或商业合作里使用，只需标注来源即可。欢迎把它们用在你正在筹备的节日 campaign 中，也期待收到你们的 remix！</p>
+					</div>
+
+					{images.map((img, index) => (
+						<picture class="picture mt-8 md:mt-12 mb-8 md:mb-12 rounded-2xl overflow-hidden">
+						<Image src={img} alt={`3D Valentine's Day asset ${index + 1}`} class="w-full h-full object-cover" loading="lazy" decoding="async" quality={100}/>
+						</picture>
+					))}
+				</div>
+			</section>
+		</main>
+	</div>
+	<ActionBar 
+		logo={logoUrl} 
+		tags={workTags} 
+		url="https://nova.lichenkang.dev/valentines" 
+		github="https://github.com/lichenkang/nova-valentines-pack" 
+		visitLabel="Visit Site" 
+	/>
+</PostLayout>

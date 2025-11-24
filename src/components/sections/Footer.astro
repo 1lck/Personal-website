@@ -1,0 +1,86 @@
+---
+import Logo from "@/components/ui/Logo.astro";
+import ToTop from "@/components/widgets/ToTop.astro";
+import { siteConfig, socialLinks } from "@/config/site.js";
+---
+
+<section
+  class="text-gray-700  border-t mt-20 md:mt-48  border-dashed border-primary/15 dark:border-primary-dark/15 border-[.75px]"
+>
+  <div
+    class="container flex flex-col items-center py-8 mx-auto px-7 max-w-7xl sm:flex-row"
+  >
+    <Logo />
+    <p
+      class="mt-4 text-sm text-neutral-700 dark:text-neutral-100 sm:ml-4 sm:pl-4 sm:border-l sm:border-neutral-300 dark:sm:border-neutral-700 sm:mt-0"
+    >
+      © {new Date().getFullYear()}
+
+       <a href={siteConfig.url || " "} target="_blank">{siteConfig.author || " "}</a>
+    </p>
+    <span
+      class="inline-flex justify-center mt-4 space-x-5 sm:ml-auto sm:mt-0 sm:justify-start overflow-hidden"
+    >
+      {socialLinks.map((social) => (
+        <a
+          href={social.url}
+          target="_blank"
+          class="footer-social-icon-link text-neutral-500 dark:text-neutral-300 "
+          title={social.name}
+        >
+          <span class="sr-only">{social.name}</span>
+          <div class="footer-social-icon text-neutral-500" >
+            <Fragment set:html={social.icon} />
+          </div>
+        </a>
+      ))}
+    </span>
+  </div>
+</section>
+
+<!-- 返回顶部按钮 -->
+<ToTop />
+
+<style is:global>
+  .footer-social-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+
+  .footer-social-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: all 0.3s ease-in-out;
+  }
+  .footer-social-icon-link:hover .footer-social-icon svg {
+    width: auto;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  .footer-social-icon-link:hover .ic-twitter {
+    color: #1DA1F2;
+  }
+
+  .footer-social-icon-link:hover .ic-github {
+    color: #333;
+  }
+
+  .footer-social-icon-link:hover .ic-zcool {
+    color: #fff200;
+  }
+
+  .footer-social-icon-link:hover .ic-behance {
+    color: #0055ff;
+  }
+
+  .footer-social-icon-link:hover .ic-rss {
+    color: #F26522;
+  }
+</style>

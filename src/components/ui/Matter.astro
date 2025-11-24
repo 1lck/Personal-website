@@ -1,0 +1,322 @@
+---
+---
+
+<div class="matter-wrapper">
+  <div id="matter" class="tricks-spacer zIndex-3d">
+    <div class="tricks-view" id="tricks-view"></div>
+  </div>
+  <div class="tricks-matter zIndex-3d">
+    <div class="tricks-canvas"></div>
+    <div class="tricks-elements"></div>
+  </div>
+</div>
+
+<script>
+import Matter from "matter-js";
+
+(() => {
+
+  const target = document.querySelector(".tricks-view");
+  if (!target) {
+    console.error("[Tricks] .tricks-view not found");
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          obs.unobserve(entry.target);
+          initTricksAnimation();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  observer.observe(target);
+
+  async function initTricksAnimation() {
+    const container = document.querySelector(".tool-stack-box") || document.querySelector(".matter-wrapper");
+    const canvasHost = document.querySelector(".tricks-canvas") as HTMLElement;
+    const domLayer = document.querySelector(".tricks-elements") as HTMLElement;
+
+    if (!container || !canvasHost || !domLayer) {
+      console.error(
+        "[Tricks] Missing required containers (.tool-stack-box/.matter-wrapper, .tricks-canvas, .tricks-elements)"
+      );
+      return;
+    }
+
+    // Config (enlarge element size & reduce edge gaps)
+    const pad = 2;      // Inner padding; smaller value sticks closer to edges
+    const margin = 1;   // Distance between static boundaries and container edges; smaller value sticks closer
+    const count = 15;   // Number of elements
+    const noRotate = false; // Set to true to disable rotation
+    const scaleFactor = 0.75; // Global scaling factor: >1 enlarge, <1 shrink
+
+    // Dimensions
+    let { width: cw, height: ch } = container.getBoundingClientRect();
+    let W = Math.max(cw - pad, 100);
+    let H = Math.max(ch - pad, 100);
+
+    // Physics engine
+    const engine = Matter.Engine.create();
+    const world = engine.world;
+
+    // Mouse drag (events fall on canvasHost)
+    const mouseConstraint = Matter.MouseConstraint.create(engine, {
+      mouse: Matter.Mouse.create(canvasHost),
+      constraint: { render: { visible: false }, stiffness: 1 },
+    });
+    Matter.World.add(world, mouseConstraint);
+
+    // Boundaries (ground and side walls)
+    let ground = Matter.Bodies.rectangle(W / 2, H - margin, W, 14, { isStatic: true });
+    let wallL = Matter.Bodies.rectangle(margin, H / 2, 14, H, { isStatic: true });
+    let wallR = Matter.Bodies.rectangle(W - margin, H / 2, 14, H, { isStatic: true });
+    Matter.World.add(world, [ground, wallL, wallR]);
+
+    // Icon paths (adjust as needed)
+    const iconUrls = [
+      "/assets/stack/astro.png",
+      "/assets/stack/css.png",
+      "/assets/stack/github.png",
+      "/assets/stack/html.png",
+      "/assets/stack/bootstrap.png",
+      "/assets/stack/cloudflare.png",
+      "/assets/stack/js.png",
+      "/assets/stack/netlify.png",
+      "/assets/stack/nextjs.png",
+      "/assets/stack/nodejs.png",
+      "/assets/stack/npm.png",
+      "/assets/stack/tailwind.png",
+      "/assets/stack/vercel.png",
+      "/assets/stack/vscode.png",
+    ];
+
+    // Preload images to obtain naturalWidth/Height
+    function loadImage(url: string) {
+      return new Promise<HTMLImageElement>((resolve, reject) => {
+        const img = new Image();
+        img.decoding = "async";
+        img.loading = "eager"; // Load as soon as lazy-load is triggered
+        img.src = url;
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Image load failed: " + url));
+      });
+    }
+
+    let iconsImgs: HTMLImageElement[] = [];
+    try {
+      iconsImgs = await Promise.all(iconUrls.map(loadImage));
+    } catch (e) {
+      console.error("[Tricks] image load failed:", e);
+    }
+
+    // Sizing strategy: significantly increase target area range (adapted for 720x480)
+    function computeAreaRange() {
+      // Use container area as the base; increase icon area proportion
+      // 720*480 ≈ 345600; here a single icon area is roughly between 1/20 ~ 1/10 of the container area
+      const baseArea = W * H;
+      const areaMin = clamp(baseArea / 20, 12000, 30000);
+      const areaMax = clamp(baseArea / 10, 20000, 50000);
+      return { areaMin, areaMax };
+    }
+    let { areaMin, areaMax } = computeAreaRange();
+
+    // Icon rigid body class (rectangle, size based on naturalWidth/Height)
+    class IconBody {
+      w: number;
+      h: number;
+      body: Matter.Body;
+      el: HTMLDivElement;
+
+      constructor(img: HTMLImageElement) {
+        const x = Math.random() * W;
+        const y = Math.random() * -H;
+
+        const r =
+          img.naturalWidth > 0 && img.naturalHeight > 0
+            ? img.naturalWidth / img.naturalHeight
+            : 1;
+
+        // Target area (random within range)
+        const A = randRange(areaMin, areaMax);
+        // Derive width/height: w = sqrt(A*r), h = w/r
+        let w = Math.sqrt(A * r);
+        let h = w / r;
+
+        // Global scale up or down
+        w *= scaleFactor;
+        h *= scaleFactor;
+
+        this.w = w;
+        this.h = h;
+
+        // Physics rectangle body
+        this.body = Matter.Bodies.rectangle(x, y, this.w, this.h, {
+          restitution: 0.35,
+          friction: 0.1,
+          frictionAir: 0.02,
+          density: clamp((this.w * this.h) / 40000, 0.001, 0.02),
+          inertia: noRotate ? Infinity : undefined, // No rotation: set infinite inertia
+        });
+
+        // DOM: container + img
+        this.el = document.createElement("div");
+        this.el.className = "tricks-circle";
+        this.el.style.width = `${this.w}px`;
+        this.el.style.height = `${this.h}px`;
+
+        const node = img.cloneNode(true) as HTMLImageElement;
+        node.style.width = "100%";
+        node.style.height = "100%";
+        node.style.objectFit = "contain"; // or "cover"
+        node.alt = node.alt || "icon";
+
+        this.el.appendChild(node);
+        domLayer.appendChild(this.el); // domLayer is ensured to be non-null here
+      }
+
+      update() {
+        const { x, y } = this.body.position;
+        const angle = this.body.angle;
+        if (noRotate) {
+          this.el.style.transform = `translate(${x - this.w / 2}px, ${y - this.h / 2}px)`;
+        } else {
+          this.el.style.transform = `translate(${x - this.w / 2}px, ${y - this.h / 2}px) rotate(${angle}rad)`;
+        }
+      }
+    }
+
+    // Create icon rigid bodies
+    const total = Math.min(iconsImgs.length, count);
+    const iconsBodies: IconBody[] = [];
+    for (let i = 0; i < total; i++) {
+      iconsBodies.push(new IconBody(iconsImgs[i]));
+    }
+    Matter.World.add(world, iconsBodies.map((it) => it.body));
+
+    // Start engine
+    const runner = Matter.Runner.create();
+    Matter.Runner.run(runner, engine);
+
+    // After each physics step, sync DOM
+    Matter.Events.on(engine, "afterUpdate", () => {
+      iconsBodies.forEach((it) => it.update());
+    });
+
+    // Responsive sizing: update boundary positions and recompute area range
+    window.addEventListener("resize", () => {
+      const rect = container.getBoundingClientRect();
+      W = Math.max(rect.width - pad, 100);
+      H = Math.max(rect.height - pad, 100);
+
+      Matter.Body.setPosition(ground, Matter.Vector.create(W / 2, H - margin));
+      Matter.Body.setPosition(wallL, Matter.Vector.create(margin, H / 2));
+      Matter.Body.setPosition(wallR, Matter.Vector.create(W - margin, H / 2));
+
+      const range = computeAreaRange();
+      areaMin = range.areaMin;
+      areaMax = range.areaMax;
+    });
+  }
+
+  // Utility functions (also usable outside the IIFE)
+  function clamp(v: number, min: number, max: number) {
+    return Math.max(min, Math.min(max, v));
+  }
+  function randRange(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+})();
+</script>
+
+<style is:global>
+/* tricks css */
+.matter-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#matter {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.tricks-spacer {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.tricks-view {
+  position: absolute;
+  left: 0%;
+  top: auto;
+  right: 0%;
+  bottom: 0%;
+  height: 99%;
+  margin-bottom: 20px;
+}
+
+.tricks-matter {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  bottom: 0%;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+
+.tricks-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.tricks-elements,
+.tricks-spacer {
+  pointer-events: none;
+}
+
+
+.tricks-circle {
+  position: absolute;
+  overflow: hidden;
+  background: transparent;
+  will-change: transform;
+}
+
+
+.tricks-circle img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+</style>

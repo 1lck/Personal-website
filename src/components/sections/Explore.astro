@@ -1,0 +1,559 @@
+---
+import SectionHeader from "@/components/elements/SectionHeader.astro";
+import Matter from "@/components/ui/Matter.astro";
+import Button from "@/components/ui/Button.astro";
+import Tools from "../ui/Tools.astro";
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {title, description
+} = Astro.props;
+
+---
+
+<section class="py-8 sm:py-12 md:py-16 md:pb-12 site-container">
+    <div class="space-y-6 sm:space-y-8 md:space-y-8">
+      <SectionHeader title={title} description={description}/>
+    </div>
+
+    <div class="explore-content w-full relative mt-6 sm:mt-8">
+        <div class="explore-list w-full relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <!-- 第一列 -->
+            <div class="explore-column explore-column-1 w-full flex gap-3 sm:gap-4 flex-col">
+                <div class="explore-item bg-bg-secondary/75   dark:bg-bg-secondary-dark relative overflow-hidden rounded-xl border border-primary/15 dark:border-neutral-700/50 explore-item-1 h-[200px] sm:h-[220px] md:h-[264px]"
+  data-aos="fade-up-sm"
+  data-aos-delay="500"
+  data-aos-duration="600"
+  data-aos-once="true">
+                    <div class="content">
+                        <h3>Design & Code</h3>
+                        <p>Turning ideas into beautiful, functional experiences.</p>
+                        <!-- <div class="mt-2 btn opacity-0 transition duration-300 ease-in-out">
+                            <Button type="disabled" url="#" size="sm">
+                                Coming Soon
+                            </Button>
+                        </div> -->
+                    </div>
+                    <div class="absolute keyboard right-[-35%] sm:right-[-50%] md:right-[-58%] bottom-0 top-0 flex items-center self-center w-[300px] sm:w-[320px] md:w-[390px] h-auto">
+                        <img src="/assets/tools/keyboard.png" alt="Keyboard" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="explore-item bg-bg-secondary/75   dark:bg-bg-secondary-dark  relative overflow-hidden rounded-xl border border-primary/15 dark:border-neutral-700/50 explore-item-2 h-[180px] sm:h-[200px]"
+  data-aos="fade-up-sm"
+  data-aos-delay="600"
+  data-aos-duration="600"
+  data-aos-once="true">
+                    <div class="content">
+                        <h3>Faves</h3>
+                        <p>Picked things I'm genuinely into.</p>
+                    </div>
+                    <div class="explore-figure game-container absolute right-0 bottom-0 top-0 w-full h-full">
+                        <div class="absolute game right-[-21%] bottom-0 top-0 mt-[-10%] flex items-center self-center w-auto h-[100px] sm:h-[120px] md:h-[130px] z-10" data-game="1">
+                            <img src="/assets/tools/game/05-game-cassette.png" alt="Game Cassette 5" class="w-full h-full object-cover self-center flex">
+                        </div>
+                        <div class="absolute game right-[-19%] bottom-0 top-0 mt-[-5%] flex items-center self-center w-auto h-[100px] sm:h-[120px] md:h-[130px] z-20" data-game="2">
+                            <img src="/assets/tools/game/04-game-cassette.png" alt="Game Cassette 4" class="w-full h-full object-cover self-center flex">
+                        </div>
+                        <div class="absolute game right-[-16%] bottom-0 top-0 mt-0 flex items-center self-center w-auto h-[100px] sm:h-[120px] md:h-[130px] z-30" data-game="3">
+                            <img src="/assets/tools/game/03-game-cassette.png" alt="Game Cassette 3" class="w-full h-full object-cover self-center flex">
+                        </div>
+                        <div class="absolute game right-[-13%] bottom-0 top-0 mt-[5%] flex items-center self-center w-auto h-[100px] sm:h-[120px] md:h-[130px] z-40" data-game="4">
+                            <img src="/assets/tools/game/02-game-cassette.png" alt="Game Cassette 2" class="w-full h-full object-cover self-center flex">
+                        </div>
+                        <div class="absolute game right-[-10%] bottom-0 top-0 mt-[10%] flex items-center self-center w-auto h-[100px] sm:h-[120px] md:h-[130px] z-50" data-game="5">
+                            <img src="/assets/tools/game/01-game-cassette.png" alt="Game Cassette 1" class="w-full h-full object-cover self-center flex">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二列 -->
+            <div class="explore-column explore-column-2 w-full flex gap-3 sm:gap-4 flex-col">
+                <div class="explore-item bg-bg-secondary/75   dark:bg-bg-secondary-dark relative overflow-hidden rounded-xl border border-primary/15 dark:border-neutral-700/50 explore-item-3 h-[180px] sm:h-[200px]"
+  data-aos="fade-up-sm"
+  data-aos-delay="700"
+  data-aos-duration="600"
+  data-aos-once="true">
+                    <div class="content">
+                        <h3>Writing</h3>
+                        <p>Style guides, design notes, and quick reads.</p>
+                        <div class="mt-2 btn opacity-0 transition duration-300 ease-in-out">
+                            <!-- <Button url="/blog" size="sm">
+                                Blog
+                            </Button> -->
+                        </div>
+                    </div>
+                    <div class="explore-figure computer absolute right-[5%] sm:right-[-10%] md:right-[-7%] bottom-[14%] w-[120px] sm:w-[130px] md:w-[148px] h-auto">
+                        <img src="/assets/tools/retro-computer.png" alt="Explore 1" class="w-full h-full object-cover z-10 relative">
+                        <div class="computer-screen absolute inset-0 w-[92px] sm:w-[100px] md:w-[116px] h-[76px] sm:h-[86px] md:h-[96px] top-[10.5%] left-[10%] rounded-[8px] rounded-b-[3px] overflow-hidden z-20">
+                          <video
+                            id="explore-computer-video"
+                            src="/assets/tools/dreamcore.mp4"
+                            poster="/assets/tools/dreamcore.jpg"
+                            autoplay
+                            loop
+                            muted
+                            playsinline
+                            webkit-playsinline
+                            preload="auto"
+                            controlslist="nodownload noplaybackrate nofullscreen noremoteplayback"
+                            disablepictureinpicture
+                            class="w-full h-full object-cover"
+                          ></video>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-item bg-bg-secondary/75   dark:bg-bg-secondary-dark explore-item-3 relative overflow-hidden rounded-xl border border-primary/15 dark:border-neutral-700/50 explore-item-4 h-[200px] sm:h-[220px] md:h-[264px]"
+  data-aos="fade-up-sm"
+  data-aos-delay="800"
+  data-aos-duration="600"
+  data-aos-once="true">
+                    <div class="content">
+                        <h3>My Tools</h3>
+                        <p>Design tools I built to speed up my workflow!</p>
+                    </div>
+                    <div class=" explore-figure absolute machine right-[5%] sm:right-[-10%] md:right-[-7%] bottom-0 top-0 flex items-center">
+                        <Tools />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="explore-column explore-column-3 w-full col-span-1 sm:col-span-2 lg:col-span-1">
+                <div class="explore-item bg-bg-secondary/75   dark:bg-bg-secondary-dark explore-item-3 relative overflow-hidden rounded-xl border border-primary/15 dark:border-neutral-700/50 explore-item-5"
+  data-aos="fade-up-sm"
+  data-aos-delay="900"
+  data-aos-duration="600"
+  data-aos-once="true">
+                    <div
+                    class="explore-figure tool-stack-box relative rounded-xl overflow-hidden w-full h-[480px] sm:h-[400px] md:h-[480px]"
+                    data-aos="fade-up-sm"
+                    data-aos-delay="100"
+                    data-aos-duration="600"
+                    data-aos-once="true"
+                    >
+                        <Matter />
+                        <div class="absolute inset-0 flex items-center justify-center text-white opacity-50">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        max-width: 45%;
+        padding-left:1rem;
+        padding-right:0.5rem;
+        display: flex;
+        align-items: self-start;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.3s ease-in-out;
+        z-index: 1;
+    }
+
+    @media (min-width: 640px) {
+        .content {
+            max-width: 55%;
+            padding-left:1.25rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .content {
+            max-width: 50%;
+            padding-left:1.5rem;
+        }
+    }
+
+    .content h3{
+        font-size: 1.25rem;
+        line-height: 1.1;
+        margin-bottom: 0.5rem;
+        font-family: var(--font-brand);
+    }
+
+    @media (min-width: 640px) {
+        .content h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .content h3 {
+            font-size: 1.75rem;
+        }
+    }
+
+    .content p{
+        font-size: 0.75rem;
+        line-height: 1.3;
+        font-weight: 400;
+        color: var(--color-neutral-400);
+        margin-bottom: 0;
+    }
+    .html .dark .content p{
+        color: var(--color-neutral-300);
+    }
+    @media (min-width: 640px) {
+        .content p {
+            font-size: 0.8125rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .content p {
+            font-size: 0.875rem;
+        }
+    }
+
+    .explore-item{
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+    .explore-item:hover .btn{
+        opacity: 1;
+    }
+
+
+    @media (min-width: 768px) {
+        .explore-item-1:hover .keyboard{
+            right: -48%;
+        }
+
+        .explore-item-3:hover .computer{
+            right: 5%;
+        }
+
+        .explore-item-4:hover .machine{
+            right: 5%;
+        }
+    }
+
+
+    @media (max-width: 767px) {
+        .explore-item-1:hover .keyboard{
+            right: -70%;
+        }
+
+        .explore-item-3:hover .computer{
+            right: -5%;
+        }
+
+        .explore-item-4:hover .machine{
+            right: -5%;
+        }
+    }
+    @media (max-width: 767px) {
+        .machine{
+            transform: scale(0.9);
+        }
+    }
+    .computer{
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+        z-index: 10;
+    }
+
+    .keyboard,.game,.machine{
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+        z-index: 10;
+    }
+
+
+    .game-container {
+        perspective: 1000px;
+        overflow: visible !important;
+    }
+    .explore-figure{
+        z-index: 50;
+    }
+
+
+    .explore-item-2 {
+        overflow: hidden;
+    }
+
+
+    .explore-column-1 {
+        overflow: visible;
+    }
+
+    .explore-list {
+        overflow: visible;
+    }
+
+    .explore-content {
+        overflow: visible;
+    }
+
+
+    .explore-item-2 .game {
+        transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+
+    @media (min-width: 768px) {
+        .explore-item-2:hover .game[data-game="1"] {
+            right: 8%;
+            transform: translateX(0) scale(1.0);
+            z-index: 10;
+        }
+
+        .explore-item-2:hover .game[data-game="2"] {
+            right: 17%;
+            transform: translateX(0) scale(1.02);
+            z-index: 20;
+        }
+
+        .explore-item-2:hover .game[data-game="3"] {
+            right: 26%;
+            transform: translateX(0) scale(1.05);
+            z-index: 30;
+        }
+
+        .explore-item-2:hover .game[data-game="4"] {
+            right: 35%;
+            transform: translateX(0) scale(1.02);
+            z-index: 40;
+        }
+
+        .explore-item-2:hover .game[data-game="5"] {
+            right: 42%;
+            transform: translateX(0) scale(1.0);
+            z-index: 50;
+        }
+    }
+
+
+    @media (max-width: 767px) {
+        .explore-item-2:hover .game[data-game="1"] {
+            right: 0%;
+            transform: translateX(0) scale(0.95);
+            z-index: 10;
+        }
+
+        .explore-item-2:hover .game[data-game="2"] {
+            right: 10%;
+            transform: translateX(0) scale(0.97);
+            z-index: 20;
+        }
+
+        .explore-item-2:hover .game[data-game="3"] {
+            right: 20%;
+            transform: translateX(0) scale(1.0);
+            z-index: 30;
+        }
+
+        .explore-item-2:hover .game[data-game="4"] {
+            right: 30%;
+            transform: translateX(0) scale(0.97);
+            z-index: 40;
+        }
+
+        .explore-item-2:hover .game[data-game="5"] {
+            right: 40%;
+            transform: translateX(0) scale(0.95);
+            z-index: 50;
+        }
+    }
+
+
+    .explore-item-2 .game:hover {
+        transform: scale(1.1) !important;
+        z-index: 100 !important;
+        filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25));
+        transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+
+    .explore-item-2 .game:active {
+        transform: scale(0.9) !important;
+        transition: all 0.1s ease;
+    }
+
+
+    @media (hover: none) {
+        .explore-item-2 .game {
+            transform: scale(0.9);
+        }
+
+        .explore-item-2 .game[data-game="1"] {
+            right: 0%;
+            z-index: 10;
+        }
+
+        .explore-item-2 .game[data-game="2"] {
+            right: 10%;
+            z-index: 20;
+        }
+
+        .explore-item-2 .game[data-game="3"] {
+            right: 20%;
+            z-index: 30;
+        }
+
+        .explore-item-2 .game[data-game="4"] {
+            right: 30%;
+            z-index: 40;
+        }
+
+        .explore-item-2 .game[data-game="5"] {
+            right: 40%;
+            z-index: 50;
+        }
+    }
+</style>
+
+<script is:inline>
+  (() => {
+
+    const videoId = 'explore-computer-video';
+    const video = document.getElementById(videoId);
+    if (!video || !(video instanceof HTMLVideoElement)) return;
+
+
+    let isPlaying = false;
+    let observer = null;
+    let playAttempts = 0;
+    const MAX_PLAY_ATTEMPTS = 3;
+
+
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.removeAttribute('controls');
+
+
+    function tryPlay() {
+
+      if (isPlaying || playAttempts >= MAX_PLAY_ATTEMPTS) return;
+
+      playAttempts++;
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            isPlaying = true;
+            playAttempts = 0; // 成功后重置计数
+            console.log('Video started playing successfully');
+          })
+          .catch((error) => {
+            isPlaying = false;
+            console.debug(`Video autoplay attempt ${playAttempts} failed:`, error.name);
+
+            // 如果是用户交互问题，等待用户交互后重试
+            if (error.name === 'NotAllowedError') {
+              handleUserInteraction();
+            }
+          });
+      }
+    }
+
+
+    function handleUserInteraction() {
+      const interactionEvents = ['touchstart', 'click', 'scroll'];
+
+      function onInteraction() {
+        tryPlay();
+
+        interactionEvents.forEach(event => {
+          document.removeEventListener(event, onInteraction);
+        });
+      }
+
+      interactionEvents.forEach(event => {
+        document.addEventListener(event, onInteraction, { once: true, passive: true });
+      });
+    }
+
+
+    function setupIntersectionObserver() {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+
+              if (video.paused) {
+                playAttempts = 0; // reset count
+                tryPlay();
+              }
+            } else {
+              // leave viewport, pause to save resources
+              if (!video.paused) {
+                video.pause();
+                isPlaying = false;
+              }
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '50px', // preload
+          threshold: 0.1
+        }
+      );
+
+      observer.observe(video);
+    }
+
+    /**
+     * Handle page visibility changes
+     */
+    function handleVisibilityChange() {
+      if (!document.hidden && !video.paused) {
+        // Page is visible again and video should play
+        const rect = video.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+        if (isInViewport) {
+          playAttempts = 0;
+          tryPlay();
+        }
+      }
+    }
+
+    // Initialize
+    function init() {
+      // Wait for video metadata to load
+      if (video.readyState >= 2) {
+        // HAVE_CURRENT_DATA
+        tryPlay();
+      } else {
+        video.addEventListener('loadeddata', tryPlay, { once: true });
+      }
+
+      // Setup viewport observer
+      setupIntersectionObserver();
+
+      // Listen for page visibility changes
+      document.addEventListener('visibilitychange', handleVisibilityChange);
+
+      // Special handling for mobile devices
+      if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        console.log('Mobile device detected, setting up additional handlers');
+        handleUserInteraction();
+      }
+    }
+
+    // Start
+    init();
+  })();
+</script>

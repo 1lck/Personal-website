@@ -1,0 +1,416 @@
+---
+// Define properties accepted by the component
+interface Props {
+  imageUrl: string; // Required
+  title?: string; // Optional, default "Home"
+  link?: string; // Optional, can be empty
+}
+
+// Set default values and receive incoming properties
+const {
+  imageUrl,
+  title = "Home",
+  link = ""
+} = Astro.props;
+---
+
+<div class="relative z-20 w-full web-case" data-href={link}>
+    <div
+        class="case-solid relative w-full h-full p-3 border-3 border-solid border-primary dark:border-primary"
+        >
+        <div class="case-square absolute top-[-5px] left-[-5px] border-2 border-solid border-primary dark:border-primary"></div>
+        <div class="case-square absolute top-[-5px] right-[-5px] border-2  border-solid border-primary dark:border-primary"></div>
+        <div class="case-square absolute bottom-[-5px] left-[-5px] border-2  border-solid border-primary dark:border-primary">
+        </div>
+        <div class="case-square absolute bottom-[-5px] right-[-5px] border-2  border-solid border-primary dark:border-primary"></div>
+
+        <div class="relative z-20 w-full">
+            <div class="relative top-0 left-0 w-full aspect-[6/7] overflow-hidden rounded-xl case-go">
+                <img
+                src={imageUrl}
+                loading="eager"
+                decoding="auto"
+                class="absolute top-0 left-0 right-0 z-30 w-full mx-auto object-cover"
+                />
+            </div>
+        </div>
+    </div>
+    <div>
+        <svg width="200" height="43" viewBox="0 0 200 43" fill="none" xmlns="http://www.w3.org/2000/svg"
+        class="pointer-events-none color-picker absolute left-[-20px] top-[45%] rounded-[10px] bg-white overflow-hidden z-30 max-w-[40%]" style="box-shadow: -2px 4px 12px rgba(81, 74, 163, 0.1);">
+                <rect width="200" height="43" rx="10" fill="white"/>
+                <mask id="mask0_458_539" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="42" y="15" width="112" height="16">
+                <path d="M44.6391 27.1243H42.3858V16.3243H50.1324V18.2977H44.6391V20.6977H49.6791V22.671H44.6391V27.1243ZM54.5597 27.271C53.4486 27.271 52.5953 26.9777 51.9997 26.391C51.4042 25.8043 51.1064 25.0043 51.1064 23.991V19.1243H53.3197V23.5643C53.3197 24.7199 53.9153 25.2977 55.1064 25.2977C55.7197 25.2977 56.1908 25.1421 56.5197 24.831C56.8575 24.5199 57.0264 24.0754 57.0264 23.4977V19.1243H59.2397V24.9377H60.3331V27.1243H58.0931V25.8177H57.5331C57.2131 26.2888 56.822 26.6488 56.3597 26.8977C55.8975 27.1466 55.2975 27.271 54.5597 27.271ZM61.787 27.1243V21.311H60.6937V19.1243H62.9337V20.431H63.4937C63.8048 19.9777 64.1959 19.6221 64.667 19.3643C65.1381 19.1066 65.7248 18.9777 66.427 18.9777C67.5381 18.9777 68.3959 19.2843 69.0004 19.8977C69.6137 20.5021 69.9204 21.3154 69.9204 22.3377V27.1243H67.707V22.751C67.707 21.551 67.0892 20.951 65.8537 20.951C64.6181 20.951 64.0004 21.551 64.0004 22.751V27.1243H61.787ZM72.0933 27.1243V21.311H70.9999V19.1243H73.2399V20.431H73.7999C74.1111 19.9777 74.5022 19.6221 74.9733 19.3643C75.4444 19.1066 76.0311 18.9777 76.7333 18.9777C77.8444 18.9777 78.7022 19.2843 79.3066 19.8977C79.9199 20.5021 80.2266 21.3154 80.2266 22.3377V27.1243H78.0133V22.751C78.0133 21.551 77.3955 20.951 76.1599 20.951C74.9244 20.951 74.3066 21.551 74.3066 22.751V27.1243H72.0933ZM85.6395 27.2843C84.7684 27.2843 84.0129 27.1154 83.3729 26.7777C82.7417 26.431 82.2529 25.9466 81.9062 25.3243C81.5595 24.6932 81.3862 23.951 81.3862 23.0977C81.3862 22.2532 81.5551 21.5243 81.8929 20.911C82.2306 20.2888 82.7106 19.8088 83.3329 19.471C83.964 19.1332 84.7062 18.9643 85.5595 18.9643C86.8129 18.9643 87.7951 19.3199 88.5062 20.031C89.2173 20.7421 89.5729 21.7154 89.5729 22.951V23.6977H83.5062C83.5951 24.2932 83.8173 24.7466 84.1729 25.0577C84.5373 25.3688 85.0217 25.5243 85.6262 25.5243C86.5329 25.5243 87.1017 25.1999 87.3329 24.551H89.5462C89.3684 25.4043 88.9329 26.0754 88.2395 26.5643C87.5551 27.0443 86.6884 27.2843 85.6395 27.2843ZM83.5595 22.231H87.4529C87.3017 21.2177 86.6751 20.711 85.5729 20.711C84.4706 20.711 83.7995 21.2177 83.5595 22.231ZM90.8287 27.1243V15.9243H93.042V27.1243H90.8287ZM98.6701 27.1243V16.3243H102.923C104.097 16.3243 105.106 16.5421 105.95 16.9777C106.803 17.4132 107.461 18.0354 107.923 18.8443C108.395 19.6532 108.63 20.6132 108.63 21.7243C108.63 22.8266 108.395 23.7821 107.923 24.591C107.461 25.3999 106.803 26.0266 105.95 26.471C105.097 26.9066 104.088 27.1243 102.923 27.1243H98.6701ZM100.923 25.2043H102.923C104.043 25.2043 104.892 24.8888 105.47 24.2577C106.057 23.6177 106.35 22.7732 106.35 21.7243C106.35 20.6666 106.057 19.8221 105.47 19.191C104.892 18.5599 104.043 18.2443 102.923 18.2443H100.923V25.2043ZM110.06 27.1243V19.1243H112.273V27.1243H110.06ZM111.167 18.3377C110.829 18.3377 110.54 18.2221 110.3 17.991C110.069 17.751 109.953 17.4621 109.953 17.1243C109.953 16.7866 110.069 16.5021 110.3 16.271C110.54 16.031 110.829 15.911 111.167 15.911C111.504 15.911 111.789 16.031 112.02 16.271C112.26 16.5021 112.38 16.7866 112.38 17.1243C112.38 17.4621 112.26 17.751 112.02 17.991C111.789 18.2221 111.504 18.3377 111.167 18.3377ZM117.473 27.2843C116.3 27.2843 115.371 27.0399 114.687 26.551C114.011 26.0532 113.647 25.3599 113.593 24.471H115.727C115.798 24.8621 115.98 25.151 116.273 25.3377C116.576 25.5154 117.007 25.6043 117.567 25.6043C118.482 25.6043 118.94 25.351 118.94 24.8443C118.94 24.6399 118.869 24.4799 118.727 24.3643C118.585 24.2399 118.358 24.1466 118.047 24.0843L116.26 23.7377C114.66 23.4354 113.86 22.6843 113.86 21.4843C113.86 20.7199 114.167 20.111 114.78 19.6577C115.393 19.1954 116.242 18.9643 117.327 18.9643C118.402 18.9643 119.256 19.1999 119.887 19.671C120.518 20.1421 120.865 20.7999 120.927 21.6443H118.793C118.705 21.271 118.531 20.9999 118.273 20.831C118.025 20.6621 117.665 20.5777 117.193 20.5777C116.358 20.5777 115.94 20.8177 115.94 21.2977C115.94 21.6443 116.211 21.871 116.753 21.9777L118.58 22.3243C119.416 22.4843 120.029 22.7554 120.42 23.1377C120.811 23.5199 121.007 24.0266 121.007 24.6577C121.007 25.4843 120.7 26.1288 120.087 26.591C119.482 27.0532 118.611 27.2843 117.473 27.2843ZM122.737 30.3243V21.311H121.644V19.1243H123.884V20.431H124.444C124.728 19.9599 125.11 19.5999 125.59 19.351C126.07 19.0932 126.644 18.9643 127.31 18.9643C128.137 18.9643 128.835 19.1377 129.404 19.4843C129.973 19.831 130.404 20.3199 130.697 20.951C130.99 21.5732 131.137 22.2977 131.137 23.1243C131.137 23.9599 130.99 24.6888 130.697 25.311C130.413 25.9332 129.999 26.4177 129.457 26.7643C128.915 27.111 128.261 27.2843 127.497 27.2843C126.91 27.2843 126.404 27.1777 125.977 26.9643C125.559 26.7421 125.235 26.431 125.004 26.031H124.95V30.3243H122.737ZM126.897 25.3643C127.573 25.3643 128.079 25.1643 128.417 24.7643C128.755 24.3643 128.924 23.8177 128.924 23.1243C128.924 22.431 128.755 21.8843 128.417 21.4843C128.079 21.0843 127.573 20.8843 126.897 20.8843C126.301 20.8843 125.826 21.0532 125.47 21.391C125.124 21.7199 124.95 22.1777 124.95 22.7643V23.4843C124.95 24.071 125.124 24.5332 125.47 24.871C125.826 25.1999 126.301 25.3643 126.897 25.3643ZM132.401 27.1243V15.9243H134.614V27.1243H132.401ZM138.894 27.271C137.952 27.271 137.214 27.0443 136.681 26.591C136.147 26.1377 135.881 25.5332 135.881 24.7777C135.881 23.9866 136.156 23.3777 136.707 22.951C137.259 22.5243 138.05 22.311 139.081 22.311H141.374V22.0043C141.374 21.1421 140.859 20.711 139.827 20.711C138.93 20.711 138.387 21.0221 138.201 21.6443H136.001C136.179 20.7643 136.592 20.0977 137.241 19.6443C137.89 19.191 138.752 18.9643 139.827 18.9643C141.01 18.9643 141.916 19.2354 142.547 19.7777C143.179 20.311 143.494 21.0843 143.494 22.0977V24.9377H144.534V27.1243H142.294V25.8177H141.734C141.459 26.2799 141.09 26.6399 140.627 26.8977C140.165 27.1466 139.587 27.271 138.894 27.271ZM139.227 25.591C139.85 25.591 140.361 25.4266 140.761 25.0977C141.17 24.7688 141.374 24.3688 141.374 23.8977V23.7777H139.187C138.387 23.7777 137.987 24.0754 137.987 24.671C137.987 24.9643 138.099 25.191 138.321 25.351C138.543 25.511 138.845 25.591 139.227 25.591ZM145.537 30.3243V28.551H147.297L147.923 27.0577L144.47 19.1243H146.817L149.057 24.511H149.11L151.297 19.1243H153.563L150.137 27.1243L149.483 28.671C149.261 29.1954 148.999 29.5999 148.697 29.8843C148.403 30.1777 147.959 30.3243 147.363 30.3243H145.537Z" fill="#161A1F"/>
+                </mask>
+                <g mask="url(#mask0_458_539)">
+                <rect width="159" height="43" transform="translate(41)" fill="#514AA3"/>
+                </g>
+                <g opacity="0.4">
+                <mask id="mask1_458_539" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8" y="14" width="26" height="15">
+                <path d="M18.1248 14.009H10.8504C10.2991 14.009 9.7705 14.228 9.38072 14.6178C8.99095 15.0076 8.77197 15.5362 8.77197 16.0874V17.6462C8.77197 17.9219 8.88146 18.1862 9.07635 18.3811C9.27124 18.576 9.53556 18.6854 9.81117 18.6854C10.0868 18.6854 10.3511 18.576 10.546 18.3811C10.7409 18.1862 10.8504 17.9219 10.8504 17.6462V16.3472C10.8504 16.2783 10.8777 16.2123 10.9265 16.1635C10.9752 16.1148 11.0413 16.0874 11.1102 16.0874H13.1886C13.2575 16.0874 13.3236 16.1148 13.3723 16.1635C13.421 16.2123 13.4484 16.2783 13.4484 16.3472V26.2196C13.4484 26.2886 13.421 26.3546 13.3723 26.4034C13.3236 26.4521 13.2575 26.4794 13.1886 26.4794H12.4092C12.1336 26.4794 11.8692 26.5889 11.6744 26.7838C11.4795 26.9787 11.37 27.243 11.37 27.5187C11.37 27.7943 11.4795 28.0586 11.6744 28.2535C11.8692 28.4484 12.1336 28.5579 12.4092 28.5579H16.566C16.8416 28.5579 17.1059 28.4484 17.3008 28.2535C17.4957 28.0586 17.6052 27.7943 17.6052 27.5187C17.6052 27.243 17.4957 26.9787 17.3008 26.7838C17.1059 26.5889 16.8416 26.4794 16.566 26.4794H15.7866C15.7177 26.4794 15.6516 26.4521 15.6029 26.4034C15.5542 26.3546 15.5268 26.2886 15.5268 26.2196V16.3472C15.5268 16.2783 15.5542 16.2123 15.6029 16.1635C15.6516 16.1148 15.7177 16.0874 15.7866 16.0874H17.865C17.9339 16.0874 18 16.1148 18.0487 16.1635C18.0974 16.2123 18.1248 16.2783 18.1248 16.3472V17.6462C18.1248 17.9219 18.2343 18.1862 18.4292 18.3811C18.624 18.576 18.8884 18.6854 19.164 18.6854C19.4396 18.6854 19.7039 18.576 19.8988 18.3811C20.0937 18.1862 20.2032 17.9219 20.2032 17.6462V16.0874C20.2032 15.5362 19.9842 15.0076 19.5944 14.6178C19.2047 14.228 18.676 14.009 18.1248 14.009Z" fill="#929DAB"/>
+                <path d="M31.1141 14.009H23.8397C23.2884 14.009 22.7598 14.228 22.37 14.6178C21.9802 15.0076 21.7612 15.5362 21.7612 16.0874V17.6462C21.7612 17.9219 21.8707 18.1862 22.0656 18.3811C22.2605 18.576 22.5248 18.6854 22.8004 18.6854C23.0761 18.6854 23.3404 18.576 23.5353 18.3811C23.7302 18.1862 23.8397 17.9219 23.8397 17.6462V16.3472C23.8397 16.2783 23.867 16.2123 23.9157 16.1635C23.9645 16.1148 24.0305 16.0874 24.0995 16.0874H26.1779C26.2468 16.0874 26.3128 16.1148 26.3616 16.1635C26.4103 16.2123 26.4377 16.2783 26.4377 16.3472V26.2196C26.4377 26.2886 26.4103 26.3546 26.3616 26.4034C26.3128 26.4521 26.2468 26.4794 26.1779 26.4794H25.3985C25.1228 26.4794 24.8585 26.5889 24.6636 26.7838C24.4687 26.9787 24.3593 27.243 24.3593 27.5187C24.3593 27.7943 24.4687 28.0586 24.6636 28.2535C24.8585 28.4484 25.1228 28.5579 25.3985 28.5579H29.5553C29.8309 28.5579 30.0952 28.4484 30.2901 28.2535C30.485 28.0586 30.5945 27.7943 30.5945 27.5187C30.5945 27.243 30.485 26.9787 30.2901 26.7838C30.0952 26.5889 29.8309 26.4794 29.5553 26.4794H28.7759C28.707 26.4794 28.6409 26.4521 28.5921 26.4034C28.5434 26.3546 28.5161 26.2886 28.5161 26.2196V16.3472C28.5161 16.2783 28.5434 16.2123 28.5921 16.1635C28.6409 16.1148 28.707 16.0874 28.7759 16.0874H30.8543C30.9232 16.0874 30.9892 16.1148 31.038 16.1635C31.0867 16.2123 31.1141 16.2783 31.1141 16.3472V17.6462C31.1141 17.9219 31.2235 18.1862 31.4184 18.3811C31.6133 18.576 31.8776 18.6854 32.1533 18.6854C32.4289 18.6854 32.6932 18.576 32.8881 18.3811C33.083 18.1862 33.1925 17.9219 33.1925 17.6462V16.0874C33.1925 15.5362 32.9735 15.0076 32.5837 14.6178C32.1939 14.228 31.6653 14.009 31.1141 14.009Z" fill="#929DAB"/>
+                </mask>
+                <g mask="url(#mask1_458_539)">
+                <rect width="28" height="25" transform="translate(9 9)" fill="#001A56"/>
+                </g>
+                </g>
+                <mask id="mask2_458_539" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="172" y="15" width="17" height="13">
+                <path d="M173.709 22.3152L177.728 26.3835L187.375 16.6164" stroke="#4A3AFF" stroke-width="2.32184" stroke-linecap="round" stroke-linejoin="round"/>
+                </mask>
+                <g mask="url(#mask2_458_539)">
+                <rect width="18" height="15" transform="translate(172 14)" fill="#514AA3"/>
+                </g>
+        </svg>
+
+    </div>
+    <div>
+        <svg width="275" class="pointer-events-none color" height="66" viewBox="0 0 275 66"                fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect x="0.5" y="0.5" width="274" height="65" rx="11.5" fill="white"/>
+                <rect x="0.5" y="0.5" width="274" height="65" rx="11.5" stroke="#F7F7F7"/>
+                <rect x="13.4194" y="12.4294" width="40.6958" height="40.6959" rx="12.9702" fill="#5255FF"/>
+                <path d="M41.7782 25.2216C42.5592 26.0027 42.5592 27.269 41.7782 28.0501L38.9498 30.8785L36.1213 28.0501L38.9498 25.2216C39.7308 24.4406 40.9971 24.4406 41.7782 25.2216ZM43.1924 23.8074C41.6303 22.2453 39.0976 22.2453 37.5355 23.8074L34.7071 26.6359L34.3535 26.2826C33.963 25.8921 33.3299 25.8921 32.9393 26.2826C32.5488 26.6732 32.5488 27.3063 32.9393 27.6969L33.2929 28.0504L27.0782 34.2651C26.5198 34.8235 26.1392 35.5347 25.9843 36.3091L25.6335 38.0633C25.556 38.4504 25.3657 38.806 25.0865 39.0852L24.1005 40.0713C23.71 40.4618 23.71 41.095 24.1005 41.4855L25.5147 42.8997C25.9052 43.2902 26.5384 43.2902 26.9289 42.8997L27.915 41.9137C28.1942 41.6345 28.5498 41.4442 28.9369 41.3667L30.6911 41.0159C31.4655 40.861 32.1767 40.4804 32.7351 39.922L38.9498 33.7073L39.3033 34.0608C39.6938 34.4513 40.327 34.4513 40.7175 34.0608C41.108 33.6703 41.108 33.0371 40.7175 32.6466L40.364 32.2931L43.1924 29.4643C44.7545 27.9022 44.7545 25.3695 43.1924 23.8074ZM34.7071 29.4647L37.5355 32.2931L31.3208 38.5078C31.0416 38.787 30.686 38.9773 30.2989 39.0547L28.5447 39.4056C27.7703 39.5604 27.0591 39.9411 26.5007 40.4995C27.0591 39.9411 27.4398 39.2299 27.5946 38.4555L27.9455 36.7013C28.0229 36.3142 28.2132 35.9586 28.4924 35.6794L34.7071 29.4647Z" fill="white"/>
+                <rect x="62.8359" y="12.4294" width="200.573" height="14.5342" rx="7.26712" fill="url(#paint0_linear_458_506)"/>
+                <g filter="url(#filter0_d_458_506)">
+                <circle cx="187.645" cy="19.4909" r="8.45164" fill="#3354FF"/>
+                <circle cx="187.645" cy="19.4909" r="9.71231" stroke="white" stroke-width="2.52134"/>
+                </g>
+                <mask id="mask0_458_506" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="179" y="11" width="18" height="17">
+                <circle cx="187.645" cy="19.4909" r="8.45164" fill="#5255FF"/>
+                </mask>
+                <g mask="url(#mask0_458_506)">
+                <rect width="674.169" height="674.169" transform="translate(-137.097 -305.326)" fill="#3354FF"/>
+                </g>
+                <rect x="62.8359" y="38.5911" width="200.573" height="14.5342" rx="7.26712" fill="url(#pattern0_458_506)" fill-opacity="0.1"/>
+                <mask id="mask1_458_506" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="62" y="38" width="202" height="16">
+                <rect x="62.8364" y="38.5911" width="200.573" height="14.5342" rx="7.26712" fill="url(#paint1_linear_458_506)"/>
+                </mask>
+                <g mask="url(#mask1_458_506)">
+                <rect width="674.169" height="674.169" transform="translate(-57.6865 -174.492)" fill="#3354FF"/>
+                </g>
+                <g filter="url(#filter1_d_458_506)">
+                <circle cx="256.142" cy="45.8582" r="7.26712" fill="#3354FF"/>
+                <circle cx="256.142" cy="45.8582" r="8.52779" stroke="white" stroke-width="2.52134"/>
+                </g>
+                <mask id="mask2_458_506" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="248" y="38" width="16" height="16">
+                <circle cx="256.143" cy="45.8582" r="7.26712" fill="#5255FF"/>
+                </mask>
+                <defs>
+                <filter id="filter0_d_458_506" x="169.405" y="1.25079" width="36.4805" height="36.4802" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset/>
+                <feGaussianBlur stdDeviation="3.63356"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_458_506"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_458_506" result="shape"/>
+                </filter>
+                <pattern id="pattern0_458_506" patternContentUnits="objectBoundingBox" width="0.0724638" height="1">
+                <use xlink:href="#image0_458_506" transform="scale(0.00113225 0.015625)"/>
+                </pattern>
+                <filter id="filter1_d_458_506" x="239.086" y="28.8026" width="34.1114" height="34.1111" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                <feOffset/>
+                <feGaussianBlur stdDeviation="3.63356"/>
+                <feComposite in2="hardAlpha" operator="out"/>
+                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/>
+                <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_458_506"/>
+                <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_458_506" result="shape"/>
+                </filter>
+                <linearGradient id="paint0_linear_458_506" x1="62.8359" y1="12.4294" x2="263.408" y2="12.4294" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FF0000"/>
+                <stop offset="0.145833" stop-color="#FF6B00"/>
+                <stop offset="0.25" stop-color="#FFE600"/>
+                <stop offset="0.401042" stop-color="#24FF00"/>
+                <stop offset="0.515625" stop-color="#00FFF0"/>
+                <stop offset="0.661458" stop-color="#0029FF"/>
+                <stop offset="0.734375" stop-color="#8F00FF" stop-opacity="0.784615"/>
+                <stop offset="0.869792" stop-color="#FF00E5"/>
+                <stop offset="1" stop-color="#FF0000"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_458_506" x1="62.8364" y1="45.8582" x2="263.409" y2="45.8582" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#C4C4C4" stop-opacity="0"/>
+                <stop offset="1" stop-color="#5E5E5E"/>
+                </linearGradient>
+                <image id="image0_458_506" width="64" height="64" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAONJREFUeF7t20EOhEAIRFG4/6F7DvEnYeFzryQIv6pBd2behOu9dPvsbog+k+NLgArQAqmJcw9iAAhSgZKB3IJkkAySQTJ4CiE+gA8oBeg0mH3Ai084P89HhqwEqIA209ICsQdjAeaZIgaAYKxBDMCAYy8fXwAIgiAIcoJpJEYGI4VjB3YrbC9gL2AvkCB43cM5PgZgAAZgQFnNZAhdGykQBEEQBEEQDBmgAm2glM/z+QUYisYUGoldO7kY32IEAzCg6RgIRgjFAsw+AgRBMNYgBmCAT2TCYfoPPz/HCqQCX1eBHzHnv7C7WhBSAAAAAElFTkSuQmCC"/>
+                </defs>
+        </svg>
+
+    </div>
+    {title && (
+    <div
+    class="absolute left-[32px] text-center top-[-22px] h-[22px] leading-[22px] w-auto px-3 overflow-hidden rounded-tl-[6px] rounded-tr-[6px] bg-primary dark:bg-primary"
+    >
+    <p
+      class="text-[11px] font-normal text-center text-white"
+    >
+        {title}
+    </p>
+    </div>
+    )}
+
+    <div class="cursor-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+        </svg>
+    </div>
+</div>
+
+<style>
+    .color {
+        box-shadow: -2px 4px 12px rgba(81, 74, 163, 0.1);
+        position: absolute;
+        right: -36px;
+        top:65%;
+        max-width:50%;
+        z-index:30;
+        border-radius:10px;
+    }
+    @media (max-width: 768px) {
+        .color {
+            right: -16px;
+        }
+    }
+
+    .case-square {
+        background:#fff;
+        height:12px;
+        width:12px;
+    }
+
+    /* Add styles for parallax effect */
+    .web-case, .color-picker, .color {
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+    }
+
+    /* Hover style */
+    .case-go {
+        position: relative;
+        cursor: pointer; /* Default use pointer style */
+    }
+
+    /* When custom cursor is active, hide default mouse */
+    .case-go.cursor-active {
+        cursor: none !important;
+    }
+
+    /* Use global style to hide default mouse */
+    html.cursor-hidden .case-go {
+        cursor: none !important;
+    }
+
+    .cursor-indicator {
+        position: absolute; /* Relative to parent container */
+        top: 0;
+        left: 0;
+        background-color: white;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0.5);
+        transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .arrow-icon {
+        color: var(--color-primary);
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Limit the maximum movement range of parallax effect */
+    @media (min-width: 1400px) {
+        .web-case {
+            overflow: visible; /* Allow parallax effect to exceed container */
+            max-width: 100%;
+        }
+    }
+    @media (min-width: 960px) {
+        .web-case {
+            overflow: visible; /* Allow parallax effect to exceed container */
+            max-width: 90%;
+        }
+    }
+    @media (min-width: 768px) {
+        .web-case {
+            overflow: visible; /* Allow parallax effect to exceed container */
+            max-width: 100%;
+        }
+
+        .color-picker {
+            left: -40px; /* Adjust position, prevent exceeding */
+            max-width: 35%;
+        }
+
+        .color {
+            right: -25px; /* Adjust position, prevent exceeding */
+            max-width: 45%;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get all needed elements
+        const webCase = document.querySelector('.web-case') as HTMLElement;
+        const colorPicker = document.querySelector('.color-picker') as HTMLElement;
+        const color = document.querySelector('.color') as HTMLElement;
+        const cursorIndicator = document.querySelector('.cursor-indicator') as HTMLElement;
+        const caseGo = document.querySelector('.case-go') as HTMLElement;
+        const html = document.documentElement;
+
+        // Check if on mobile device
+        const isMobile = window.innerWidth < 768;
+
+        // If on mobile device, do not enable parallax and custom cursor effect
+        if (isMobile) {
+            return;
+        }
+
+        // Strength coefficient of parallax effect
+        const webCaseStrength = 25;
+        const colorPickerStrength = 40;
+        const colorStrength = 50;
+
+        // Global variables, used to store mouse position and animation state
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let isHovering = false;
+
+        // Smooth follow interpolation coefficient
+        const cursorEasing = 0.12;
+        const parallaxEasing = 0.08;
+
+        // Listen for global mouse movement - parallax effect
+        document.addEventListener('mousemove', (e: MouseEvent) => {
+            // Get the position relative to the viewport center (normalized to -0.5 ~ 0.5)
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        // Handle mouse events for clickable areas separately - custom cursor
+        if (caseGo) {
+            // Mouse enters clickable area
+            caseGo.addEventListener('mouseenter', () => {
+                isHovering = true;
+                html.classList.add('cursor-hidden');
+                if (cursorIndicator) {
+                    cursorIndicator.style.opacity = '1';
+                    cursorIndicator.style.transform = 'translate(-50%, -50%) scale(1)';
+                }
+            });
+
+            // Mouse leaves clickable area
+            caseGo.addEventListener('mouseleave', () => {
+                isHovering = false;
+                html.classList.remove('cursor-hidden');
+                if (cursorIndicator) {
+                    cursorIndicator.style.opacity = '0';
+                    cursorIndicator.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                }
+            });
+
+                // Mouse moves in clickable area
+            caseGo.addEventListener('mousemove', (e: MouseEvent) => {
+                if (!isHovering) return;
+
+                // Get the position relative to the clickable area
+                const rect = caseGo.getBoundingClientRect();
+                targetX = e.clientX - rect.left;
+                targetY = e.clientY - rect.top;
+            });
+
+            // Click event
+            caseGo.addEventListener('click', () => {
+                const href = webCase?.getAttribute('data-href');
+                if (href) {
+                    window.open(href, '_blank');
+                }
+            });
+        }
+
+        // Separate animation loop - parallax effect
+        function updateParallax() {
+            // Update parallax effect of main card
+            if (webCase) {
+                const targetWebCaseX = mouseX * webCaseStrength;
+                const targetWebCaseY = mouseY * webCaseStrength;
+
+                // Get current transformation matrix
+                const currentTransform = new DOMMatrix(getComputedStyle(webCase).transform);
+                const currentX = currentTransform.m41 || 0;
+                const currentY = currentTransform.m42 || 0;
+
+                // Smooth transition
+                const newX = currentX + (targetWebCaseX - currentX) * parallaxEasing;
+                const newY = currentY + (targetWebCaseY - currentY) * parallaxEasing;
+
+                webCase.style.transform = `translate3d(${newX}px, ${newY}px, 0)`;
+            }
+
+            // Update parallax effect of color picker
+            if (colorPicker) {
+                const targetColorPickerX = mouseX * colorPickerStrength;
+                const targetColorPickerY = mouseY * colorPickerStrength;
+
+                const currentTransform = new DOMMatrix(getComputedStyle(colorPicker).transform);
+                const currentX = currentTransform.m41 || 0;
+                const currentY = currentTransform.m42 || 0;
+
+                const newX = currentX + (targetColorPickerX - currentX) * parallaxEasing;
+                const newY = currentY + (targetColorPickerY - currentY) * parallaxEasing;
+
+                colorPicker.style.transform = `translate3d(${newX}px, ${newY}px, 0)`;
+            }
+
+            // Update parallax effect of color bar
+            if (color) {
+                const targetColorX = mouseX * colorStrength;
+                const targetColorY = mouseY * colorStrength;
+
+                const currentTransform = new DOMMatrix(getComputedStyle(color).transform);
+                const currentX = currentTransform.m41 || 0;
+                const currentY = currentTransform.m42 || 0;
+
+                const newX = currentX + (targetColorX - currentX) * parallaxEasing;
+                const newY = currentY + (targetColorY - currentY) * parallaxEasing;
+
+                color.style.transform = `translate3d(${newX}px, ${newY}px, 0)`;
+            }
+
+            requestAnimationFrame(updateParallax);
+        }
+
+        // Separate animation loop - custom cursor
+        function updateCursor() {
+            if (isHovering && cursorIndicator) {
+                // Smooth follow
+                cursorX += (targetX - cursorX) * cursorEasing;
+                cursorY += (targetY - cursorY) * cursorEasing;
+
+                cursorIndicator.style.left = `${cursorX}px`;
+                cursorIndicator.style.top = `${cursorY}px`;
+            }
+
+            requestAnimationFrame(updateCursor);
+        }
+
+        // Start two separate animation loops
+        updateParallax();
+        updateCursor();
+    });
+</script>

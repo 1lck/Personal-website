@@ -1,0 +1,72 @@
+<div class="relative w-[198px] h-[180px] overflow-hidden rounded-3xl bg-[url('/assets/tools/deck.png')] bg-cover flex items-start justify-center ">
+
+    <div class="tools-container relative m-auto mt-[28px] ">
+        <div class="tools-list grid grid-cols-4 gap-[12px]">
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                <img src="/assets/tools/logo/tool-ricoog.svg" alt="" class="w-[24px] h-auto">
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <img src="/assets/tools/logo/tool-gradienthub.svg" alt="" class="w-[22px] h-auto">
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <img src="/assets/tools/logo/tool-uiuxdeck.svg" alt="" class="w-[20px] h-auto">
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <img src="/assets/tools/logo/tool-inspoweb.png" alt="" class="w-[20px] h-auto">
+            </div>
+                        <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                <img src="/assets/tools/logo/tool-todo.png" alt="" class="w-[24px] h-auto">
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <img src="/assets/tools/logo/ricoui.png" alt="" class="w-[26px] h-auto">
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <!-- <img src="/assets/tools/logo/" alt="" class="w-[24px] h-auto"> -->
+            </div>
+            <div class="relative tool-item w-[32px] h-[32px] flex items-center justify-center bg-[url('/assets/tools/tool-icon-bg.png')] bg-cover">
+                 <!-- <img src="/assets/tools/logo/" alt="" class="w-[24px] h-auto"> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="bar absolute bottom-[24px] left-[18px] right-[18px] bg-[url('/assets/tools/spin-bar.svg')] bg-cover w-[calc(100%-36px)] h-[39px] flex items-center justify-center overflow-hidden rounded-[10px]">
+            <div class="absolute  bar-spin-inner w-auto h-full border-box overflow-hidden flex items-center justify-center gap-2 p-0 m-auto">
+                <img src="/assets/tools/spin.png" alt="" class="spin object-cover  w-auto  h-[72%]">
+                <img src="/assets/tools/spin.png" alt="" class="spin object-cover  w-auto  h-[72%]">
+                <img src="/assets/tools/spin.png" alt="" class="spin object-cover  w-auto  h-[72%]">
+                <img src="/assets/tools/spin.png" alt="" class="spin object-cover  w-auto  h-[72%]">
+            </div>
+    </div>
+</div>
+
+<style>
+    .tool-item{
+        cursor: pointer;
+        transition: transform 0.3s ease;
+
+    }
+    .tool-item img{
+        opacity: 0.75;
+        transition: opacity 0.3s ease-in-out;
+    }
+    .tool-item:hover img{
+        opacity: 1;
+    }
+    .spin{
+        cursor: pointer;
+        animation: spin 5s linear infinite;
+        animation-play-state: paused;
+        animation-fill-mode: forwards;
+    }
+     .spin:hover{
+        animation-play-state: running;
+     }
+    @keyframes spin {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>

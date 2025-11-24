@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import PostLayout from "@/layouts/PostLayout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import ActionBar from "@/components/widgets/ActionBar.astro";
+import SeparatorLine from "@/components/elements/SeparatorLine.astro";
+
+// 自动导入作品截图
+const allImagesModules = import.meta.glob('../../assets/work/luonmodels/*.{jpg,png,webp}', { eager: true });
+const allImages = Object.values(allImagesModules) as Array<{ default: any }>;
+const logoUrl = "https://sunbird.lichenkang.dev/favicon.png";
+---
+<PostLayout
+	title="Sunbird Talent · Recruitment Site"
+	description = 'Sunbird Talent 是我为校内社团打造的 Astro 招募网站模板，强调岗位故事、导师信息与报名转化。'
+	keywords = 'Sunbird Talent, Recruitment Website, Astro Template, Student Club, Portfolio',
+>
+	<div class="work article">
+		<main class="work-wrapper">
+				<PageHeader
+					title="Sunbird Talent · Recruitment Site"
+					tags={["Template","Recruiting","Astro"]}
+					className="mb-6 md:mb-8"
+				>
+				</PageHeader>
+			</section>
+			<div class="site-container m-auto">
+				<SeparatorLine />
+			</div>
+			<section class="article-content">
+				<div class="site-container mx-auto my-8 md:my-16 ">
+					<div>
+						<p>
+							在实验室里，我们每学期都会面对不同社团与学生组织的招募需求。Sunbird Talent 是我设计与开发的通用模板，目的是减少重复开发成本的同时，让候选人更快了解团队文化与岗位要求。
+						</p>
+						<p>功能亮点</p>
+						<ul>
+							<li>Responsive：针对手机二维码访问做了专门优化，首屏直接展示职位卡片。</li>
+							<li>Markdown 驱动：所有岗位、FAQ、导师介绍都来自 Markdown/JSON，可由非技术成员编辑。</li>
+							<li>流程组件：自定义步骤、考核资料、导师信息，快速复用到不同项目。</li>
+							<li>活动模式：切换成活动落地页后，支持时间轴、相册、报名链接等模块。</li>
+							<li>性能优化：Astro 预渲染 + 图片懒加载，部署在校园 CDN，TTFB < 200ms。</li>
+							<li>多语言：内置中/英语言包，方便与兄弟高校协同招募时快速切换。</li>
+						</ul>
+						<p>🔗🔗 <a href="https://sunbird.lichenkang.dev/" target="_blank">Live Demo</a></p>
+					</div>
+					{allImages.map((img, index) => (
+						<picture class="picture mt-8 md:mt-12 mb-8 md:mb-12 rounded-2xl overflow-hidden">
+						<Image src={img.default} alt={`Sunbird Talent 截图 ${index + 1}`} class="w-full h-full object-cover" loading="lazy" decoding="async" quality={100}/>
+						</picture>
+					))}
+				</div>
+			</section>
+		</main>
+	</div>
+	<ActionBar logo={logoUrl} tags={["Template", "Website"]} url="https://sunbird.lichenkang.dev/" github="https://github.com/lichenkang/sunbird-talent" visitLabel="Visit Site" />
+</PostLayout>
+
+

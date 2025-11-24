@@ -1,0 +1,16 @@
+---
+import WorksSection from "@/components/sections/WorksSection.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+---
+
+<PageLayout title="My Works">
+  <section class="site-container m-auto">
+    <PageHeader
+      title="Works"
+      description="Here are some of my recent projects. I'm always working on something new, so check back often!"
+    />
+
+    <WorksSection />
+  </section>
+</PageLayout>

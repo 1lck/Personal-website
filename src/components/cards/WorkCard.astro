@@ -1,0 +1,319 @@
+---
+interface Props {
+  name: string;          // Required
+  image: string;         // Required
+  url: string;          // Required
+  description?: string;  // Optional
+  tags?: string[];      // Optional
+  video?: string;       // Optional
+  isShow?: boolean;     // Optional, default true
+  layout?: 'featured' | 'grid'; // featured is full width, grid is two columns
+  index?: number;
+  target?: string;      // Optional, default "_blank"
+}
+
+const {
+  name,
+  description = '',
+  url,
+  image,
+  tags = [],
+  video,
+  isShow = true,
+  layout = 'grid',
+  index = 0,
+  target = "_blank"
+} = Astro.props;
+
+// Generate stable id for each video for precise playback control
+const videoId = `workcard-video-${index}-${name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
+---
+
+<article
+  class:list={[
+    "group relative overflow-hidden transition-all duration-500 mb-8 bg-white/85 p-5 dark:bg-bg-secondary-dark border-[.75px] border-solid border-primary/15 rounded-2xl backdrop-blur-sm",
+    layout === 'featured' ? "" : ""
+  ]}
+  data-aos="fade-up"
+  data-aos-duration="500"
+  data-aos-delay={index * 100}
+  data-aos-once="true"
+>
+  <!-- Image/video container -->
+  <div class="relative overflow-hidden aspect-video rounded-xl">
+    {video ? (
+      <!-- Video -->
+      <video
+        id={videoId}
+        src={video}
+        poster={image}
+        autoplay
+        loop
+        muted
+        playsinline
+        webkit-playsinline
+        preload="auto"
+        controls={false}
+        disablepictureinpicture
+        controlslist="nodownload noplaybackrate nofullscreen noremoteplayback"
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      >
+        <source src={video} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ) : (
+      <!-- Image -->
+      <img
+        src={image}
+        alt={name}
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 hover:shadow-xl hover:shadow-primary/5 dark:hover:shadow-primary/10"
+        loading="lazy"
+      />
+    )}
+
+    <!-- Gradient overlay shown on hover -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/25 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+
+    <!-- Link button shown on hover -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+      <div class="flex items-center justify-center w-14 h-14 rounded-full bg-white/95 backdrop-blur-sm shadow-lg transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 group-hover:scale-110">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-primary"
+        >
+          <path d="M7 7h10v10"></path>
+          <path d="M7 17 17 7"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content area -->
+  <div class:list={[
+    "px-1 pt-6 pb-2",
+    layout === 'featured' ? "md:px-1 md:pt-6 md:pb-2" : ""
+  ]}>
+    <!-- Title and link icon -->
+    <div class="flex items-start justify-between gap-3 mb-3">
+      <h3 class:list={[
+        "text-neutral-900 dark:text-white leading-tight font-brand transition-colors duration-300 group-hover:text-primary dark:group-hover:text-primary-light",
+        layout === 'featured' ? "text-2xl md:text-3xl" : "text-2xl"
+      ]}>
+        {name}
+      </h3>
+
+      <!-- Link icon -->
+      <div class="flex-shrink-0 mt-1">
+        <div class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light transition-all duration-300 group-hover:bg-primary dark:group-hover:bg-primary-light group-hover:text-white dark:group-hover:text-neutral-900 group-hover:rotate-45">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M7 7h10v10"></path>
+            <path d="M7 17 17 7"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    {tags && tags.length > 0 && (
+      <div class="flex flex-wrap gap-1.5 mb-3">
+        {tags.map((tag) => (
+          <span class="inline-flex items-center rounded-full bg-primary/8 dark:bg-primary/15 px-2.5 py-0.5 text-[10px] font-medium text-primary-dark dark:text-primary-light border border-primary/10 dark:border-primary/20">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <!-- Description -->
+    {description && (
+      <p class:list={[
+        "text-neutral-600 dark:text-neutral-400 leading-relaxed",
+        layout === 'featured' ? "text-base md:text-lg line-clamp-2" : "text-sm line-clamp-2"
+      ]}>
+        {description}
+      </p>
+    )}
+  </div>
+
+  <!-- Link overlay for entire card -->
+  <a
+    href={url}
+    target={target}
+    rel={target === "_blank" ? "noopener noreferrer" : undefined}
+    class="absolute inset-0 z-10"
+  >
+    <span class="sr-only">View {name}</span>
+  </a>
+</article>
+
+{video && (
+  <script define:vars={{ videoId }}>
+    // Use IIFE to avoid global pollution and ensure each video is managed independently
+    (function() {
+      'use strict';
+
+      const video = document.getElementById(videoId);
+      if (!video || !(video instanceof HTMLVideoElement)) return;
+
+      // State management
+      let isPlaying = false;
+      let observer = null;
+      let playAttempts = 0;
+      const MAX_PLAY_ATTEMPTS = 3;
+
+      // Force set mobile playback attributes
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.removeAttribute('controls');
+
+      /**
+       * Try to play video (with debounce and retry limit)
+       */
+      function tryPlay() {
+        // Prevent duplicate playback
+        if (isPlaying || playAttempts >= MAX_PLAY_ATTEMPTS) return;
+
+        playAttempts++;
+
+        const playPromise = video.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              isPlaying = true;
+              playAttempts = 0; // Reset count on success
+            })
+            .catch((error) => {
+              isPlaying = false;
+              console.debug(`Video autoplay attempt ${playAttempts} failed:`, error.name);
+
+              // If it's a user interaction issue, wait for user interaction and retry
+              if (error.name === 'NotAllowedError') {
+                handleUserInteraction();
+              }
+            });
+        }
+      }
+
+      /**
+       * Handle user interaction to trigger playback (common requirement on mobile)
+       */
+      function handleUserInteraction() {
+        const interactionEvents = ['touchstart', 'click', 'scroll'];
+
+        function onInteraction() {
+          tryPlay();
+          // Remove listeners to avoid duplicate triggers
+          interactionEvents.forEach(event => {
+            document.removeEventListener(event, onInteraction);
+          });
+        }
+
+        interactionEvents.forEach(event => {
+          document.addEventListener(event, onInteraction, { once: true, passive: true });
+        });
+      }
+
+      /**
+       * Viewport visibility management (performance optimization)
+       */
+      function setupIntersectionObserver() {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Enter viewport, try to play
+                if (video.paused) {
+                  playAttempts = 0; // Reset count
+                  tryPlay();
+                }
+              } else {
+                // Leave viewport, pause to save resources
+                if (!video.paused) {
+                  video.pause();
+                  isPlaying = false;
+                }
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: '50px', // Preload
+            threshold: 0.1
+          }
+        );
+
+        observer.observe(video);
+      }
+
+      /**
+       * Handle page visibility changes
+       */
+      function handleVisibilityChange() {
+        if (!document.hidden && !video.paused) {
+          // Page is visible again and video should play
+          const rect = video.getBoundingClientRect();
+          const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+          if (isInViewport) {
+            playAttempts = 0;
+            tryPlay();
+          }
+        }
+      }
+
+      // Initialize
+      function init() {
+        // Wait for video metadata to load
+        if (video.readyState >= 2) {
+          // HAVE_CURRENT_DATA
+          tryPlay();
+        } else {
+          video.addEventListener('loadeddata', tryPlay, { once: true });
+        }
+
+        // Setup viewport observer
+        setupIntersectionObserver();
+
+        // Listen for page visibility changes
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+      }
+
+      // Cleanup function (when component unmounts)
+      function cleanup() {
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+      }
+
+      // Start
+      init();
+
+      // If it's a SPA, can cleanup on page unload
+      // Astro's View Transitions will trigger this event
+      document.addEventListener('astro:before-preparation', cleanup, { once: true });
+    })();
+  </script>
+)}

@@ -1,0 +1,17 @@
+[
+	{
+		"dates": "Sep 2022 · Present",
+		"role": "Full-Stack Student Developer",
+		"company": "JG University Innovation Lab",
+		"description": "Lead the backend for a campus-wide collaboration platform using Spring Boot, PostgreSQL, and Astro, translating research needs into reliable tools.",
+		"logo": "/assets/experiences/company.jpg"
+	},
+	{
+		"dates": "Jul 2024 · Oct 2024",
+		"role": "Backend Engineering Intern",
+		"company": "Nanchang Cloud Foundry",
+		"description": "Shipped Java microservices for a logistics scheduling platform, owned integration testing, and instrumented services with Grafana, Prometheus, and OpenTelemetry.",
+		"logo": "/assets/experiences/company.jpg"
+	}
+
+]

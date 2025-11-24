@@ -1,0 +1,61 @@
+---
+import { Image } from "astro:assets";
+import PostLayout from "@/layouts/PostLayout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import ActionBar from "@/components/widgets/ActionBar.astro";
+import SeparatorLine from "@/components/elements/SeparatorLine.astro";
+
+
+// 手动导入图片
+import P_01 from "../../assets/work/ricoblog2024/P_01.jpg";
+import P_02 from "../../assets/work/ricoblog2024/P_02.jpg";
+import P_03 from "../../assets/work/ricoblog2024/P_03.jpg";
+import P_04 from "../../assets/work/ricoblog2024/P_04.jpg";
+import P_05 from "../../assets/work/ricoblog2024/P_05.jpg";
+import P_06 from "../../assets/work/ricoblog2024/P_06.jpg";
+import P_07 from "../../assets/work/ricoblog2024/P_07.jpg";
+const images = [P_01, P_02, P_03, P_04, P_05, P_06, P_07];
+
+import logoUrl from "../../assets/work/ricoblog2024/logo.png";
+---
+<PostLayout
+	title="Personal Hub · 2025"
+	description = '李陈康基于 Astro 与自建 Java 服务打造的个人知识枢纽，用于记录校园项目、技术试验与写作。'
+	keywords = 'Li Chenkang, Personal Hub, Blog, Portfolio, Astro, Spring Boot',
+>
+	<div class="work article">
+		<main class="work-wrapper">
+				<PageHeader
+					title="Personal Hub · 2025"
+					tags={["Portfolio","Blog","Student"]}
+					className="mb-6 md:mb-8"
+				>
+				</PageHeader>
+			</section>
+			<div class="site-container m-auto">
+				<SeparatorLine />
+			</div>
+			<section class="article-content">
+				<div class="site-container mx-auto my-8 md:my-16 ">
+					<div>
+						<p>
+							我叫李陈康，是来自江西井冈山的计科学生。大一开始我就坚持每年重构一次个人网站，让它成为展示作品、记录实验和表达观点的阵地。Personal Hub 2025 版本延续了这一习惯，把我对 Java 全栈开发、校园产品体验以及内容创作的思考统统收了进来。
+						</p>
+						<p>设计没有传统意义上的「大稿」，我直接在 Figma 里维护设计系统，随后把组件映射到 Astro 组件库。通过这种方式，我可以在敲代码时随手调整排版，不需要来回切换上下文，开发、写作与排版自然地融合在一起。</p>
+						<p>站点的文章、项目数据来自一个 Spring Boot + PostgreSQL 的服务，静态资源则由 Astro 输出，通过 GitHub Actions 自动部署到学生云服务器。这样我在宿舍里推送一篇新文章，几分钟内它就能同步到生产环境。</p>
+						<p>Personal Hub 也是实验室分享会里的演示案例：需求拆解 → 设计语言 → 接口定义 → 自动化部署，完整地展示了我如何把后端的稳定性和前端的动效体验结合在一起。如果你也在搭建自己的学习站点，欢迎在页面底部找到源码，与我交流想法。</p>
+					</div>
+					{images.map((img, index) => (
+						<picture class="picture mt-8 md:mt-12 mb-8 md:mb-12 rounded-2xl overflow-hidden">
+						<Image src={img} alt={`Personal Hub 2025 设计图 ${index + 1}`} class="w-full h-full object-cover" loading="lazy" decoding="async" quality={100}/>
+						</picture>
+					))}
+
+				</div>
+			</section>
+		</main>
+	</div>
+	<ActionBar logo={logoUrl} tags={["Portfolio", "Blog"]} url="https://lichenkang.dev/" github="https://github.com/lichenkang/personal-hub" visitLabel="Visit Site" />
+</PostLayout>
+
+

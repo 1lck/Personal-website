@@ -1,0 +1,58 @@
+[
+	{
+		"name": "CampusPulse",
+		"description": "Campus collaboration & scheduling platform.",
+		"tags": ["Full-Stack", "Java", "Astro"],
+		"image": "/assets/works/ricoog.jpg",
+		"video": "/assets/works/ricoog.mp4",
+		"url": "https://campuspulse.lichenkang.dev",
+		"isShow": true
+	},
+	{
+		"name": "DataCanvas",
+		"description": "Gradient-powered data visualization toolkit for student research labs.",
+		"tags": ["Data Viz","Design Systems","Tools"],
+		"image": "/assets/works/gradientshub.jpg",
+		"video": "/assets/works/gradientshub.mp4",
+		"url": "https://datacanvas.lichenkang.dev"
+	},
+	{
+		"name": "Sunbird Talent",
+		"description": "Agency-style site template built for student clubs looking to recruit talent.",
+		"tags": ["Template","Website","Recruiting"],
+		"image": "/assets/works/luonmodels.jpg",
+		"video": "/assets/works/luonmodels.mp4",
+		"url": "/work/luonmodels"
+	},
+	{
+		"name": "Personal Hub",
+		"description": "A bilingual portfolio and blog documenting my experiments.",
+		"tags": ["Portfolio","Blog","Open Source"],
+		"image": "/assets/works/ricoui.jpg",
+		"video": "/assets/works/ricoui.mp4",
+		"url": "/work/ricoblog2024"
+
+	},
+	{
+		"name": "Nova Valentines",
+		"description": "A stylized 3D asset pack for seasonal marketing campaigns.",
+		"tags": ["3D","Resources","Assets"],
+		"image": "/assets/works/3d-valentines.jpg",
+		"video": "/assets/works/3d-valentines.mp4",
+		"url": "/work/3dvalentine"
+	},
+	{
+		"name": "DevKit Deck",
+		"description": "Curated tools, icons, and starters for design-minded developers.",
+		"tags": ["Resources","Toolkit","Community"],
+		"image": "/assets/works/uiuxdeck.jpg",
+		"url": "https://toolkit.lichenkang.dev"
+	},
+	{
+		"name": "Cosmos Archive",
+		"description": "An inspiration library I maintain for web storytelling patterns.",
+		"tags": ["Inspiration","Web Collection"],
+		"image": "/assets/works/inspoweb.jpg",
+		"url": "https://cosmos.lichenkang.dev"
+	}
+]

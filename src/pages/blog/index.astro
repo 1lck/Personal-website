@@ -1,0 +1,32 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/elements/PageHeader.astro";
+import BlogSection from "@/components/sections/BlogSection.astro";
+
+// 使用与分页页面相同的每页文章数量
+const POSTS_PER_PAGE = 6;
+// 博客首页显示第一页内容
+const currentPage = 1;
+---
+
+<Layout title="Blog">
+  <section class="relative z-20 container mx-auto my-12 px-7 lg:px-0">
+    <PageHeader
+      title="My Blog"
+      description="Explore my thoughts on design and development, the convergence of thinking and innovation. Feel free to follow the updates!"
+    />
+  </section>
+  <section class="relative z-20 mx-auto my-12  lg:px-0">
+    <div class="mt-12">
+      <BlogSection
+        title=""
+        listPage={true}
+        pagination={{
+          enable: true,
+          currentPage: currentPage
+        }}
+        postsPerPage={POSTS_PER_PAGE}
+      />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,68 @@
+[
+	{
+        "id": 1,
+		"name": "Github",
+        "username": "lichenkang",
+		"image": "/assets/social/social-github.jpg",
+		"url": "https://github.com/lichenkang"
+	},
+
+	{
+        "id": 2,
+		"name": "Xiaohongshu",
+        "username": "lck_dev",
+		"image": "/assets/social/social-xiaohongshu.jpg",
+		"url": "https://www.xiaohongshu.com/user/profile/lichenkang"
+	},
+
+    {
+        "id": 3,
+		"name": "Twitter",
+        "username": "lichenkangdev",
+		"image": "/assets/social/social-twitter.jpg",
+		"url": "https://x.com/lichenkangdev"
+	},
+
+    {
+        "id": 4,
+		"name": "Gumroad",
+        "username": "lichenkang",
+		"image": "/assets/social/social-gumroad.jpg",
+		"url": "https://lichenkang.gumroad.com/"
+	},
+
+    {
+        "id": 5,
+		"name": "Behance",
+        "username": "lichenkang",
+		"image": "/assets/social/social-behance.jpg",
+		"url": "https://www.behance.net/lichenkang"
+	},
+
+    {
+        "id": 6,
+		"name": "figma",
+        "username": "lichenkang",
+		"image": "/assets/social/social-figma.jpg",
+		"url": "https://www.figma.com/@lichenkang",
+        "isShow": false
+	},
+
+    {
+        "id": 7,
+		"name": "Dribbble",
+        "username": "lichenkang",
+		"image": "/assets/social/social-dribbble.jpg",
+		"url": "https://dribbble.com/lichenkang"
+	},
+
+    {
+        "id": 8,
+		"name": "Email",
+        "username": "hello@lichenkang.dev",
+		"image": "/assets/social/social-email.jpg",
+		"url": "mailto:hello@lichenkang.dev"
+	}
+
+
+]

@@ -1,0 +1,397 @@
+---
+import { Mail, Moon, SunMedium,Download } from "@lucide/astro";
+import menus from "@/collections/menu.json";
+import Button from "@/components/ui/Button.astro";
+import Logo from "@/components/ui/Logo.astro";
+---
+
+<!-- This is an invisible div with relative position so that it takes up the height of the menu (because menu is absolute/fixed) -->
+<div class="relative w-full h-16 sm:h-20 opacity-0 pointer-events-none"></div>
+<header id="header" class="fixed top-2 sm:top-4 z-50 w-full px-3 sm:px-4 lg:px-6">
+  <div id="site-container"
+    class="flex items-center justify-between h-14 sm:h-15 site-container mx-auto px-4 sm:px-6 py-2.5 border-transparent border-[0.5px] transition-all duration-300"
+  >
+    <!-- Logo -->
+    <div class="flex-shrink-0 z-50">
+      <Logo />
+    </div>
+
+    <!-- Mobile Menu Background Overlay -->
+    <div
+      id="mobileMenuBackground"
+      class="fixed inset-0 z-20 hidden w-screen h-screen duration-300 ease-out bg-white/90 backdrop-blur-sm dark:bg-neutral-950/90"
+    >
+    </div>
+
+    <!-- Navigation -->
+    <nav
+      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-neutral-500 dark:text-neutral-400 sm:flex-row sm:items-center"
+    >
+      <!-- Mobile Menu Toggle Buttons -->
+      <div class="flex items-center gap-2 sm:hidden">
+        <!-- Dark Mode Toggle (Mobile) -->
+        <div
+          id="darkToggleMobile"
+          class="flex items-center justify-center w-10 h-10 cursor-pointer rounded-full bg-gradient-to-b from-white to-[#edeefa] border-[0.5px] border-[#f3f3ff] dark:from-neutral-800 dark:to-neutral-600 dark:border-neutral-600 transition-transform duration-200 active:scale-95"
+        >
+          <div
+            class="flex justify-center items-center w-6 h-6 relative overflow-hidden rounded-full bg-[#7fa1ff]  bg-gradient-to-b from-[#85a6ff] to-[#2d6dc3] border-[0.5px] border-[#7fa1ff]"
+            style="box-shadow: 0px 2px 3px 0 rgba(55,52,209,0.21);"
+          >
+            <SunMedium
+              class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease mobile-sun" />
+            <Moon
+              class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease mobile-moon" />
+          </div>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <div
+          id="openMenu"
+          class="flex items-center justify-center w-10 h-10 cursor-pointer transition-transform duration-200 active:scale-90"
+        >
+          <svg
+            class="w-7 h-7 text-neutral-700 dark:text-neutral-200"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"><path d="M4 8h16M4 16h16"></path></svg
+          >
+        </div>
+
+        <!-- Close Menu Button -->
+        <div
+          id="closeMenu"
+          class="hidden items-center justify-center w-10 h-10 cursor-pointer transition-transform duration-200 active:scale-90"
+        >
+          <svg
+            class="w-6 h-6 text-neutral-600 dark:text-neutral-200"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"><path d="M6 18L18 6M6 6l12 12"></path></svg
+          >
+        </div>
+      </div>
+
+      <!-- Menu Items -->
+      <div
+        id="menu"
+        class="fixed top-[68px] sm:top-0 left-3 right-3 sm:left-0 sm:right-0 ease-out duration-300 z-40 flex-col items-center justify-start hidden w-auto h-auto text-sm pt-6 pb-5 sm:py-0 sm:relative sm:flex-row sm:flex"
+      >
+        <!-- Mobile Menu Background -->
+        <div
+          class="absolute inset-0 top-0 right-0 block w-full h-full sm:hidden"
+        >
+          <div
+            class="relative w-full h-full bg-white/95 border border-dashed border-neutral-300 dark:border-neutral-700 backdrop-blur-md rounded-2xl dark:bg-neutral-950/95 shadow-lg"
+          >
+          </div>
+        </div>
+
+        <!-- Menu Links -->
+        <div class="relative z-10 flex flex-col sm:flex-row items-center w-full sm:w-auto gap-1 sm:gap-0">
+          {
+            menus.map((menu) => {
+              return (
+                <a
+                  href={menu.url}
+                  class="relative flex items-center justify-center w-full sm:w-auto px-5 py-2.5 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide text-center duration-200 ease-out rounded-lg sm:rounded-none text-neutral-700 dark:text-neutral-200   hover:text-primary sm:hover:bg-transparent dark:hover:text-white dark:hover:bg-neutral-800/50 sm:dark:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all"
+                >
+                  {menu.name}
+                </a>
+              )
+            })
+          }
+        </div>
+
+        <!-- Contact Button (Mobile) -->
+        <div class="relative z-10 w-full px-5 mt-3 sm:hidden">
+          <Button url="javascript:void(0);" type="fill" className="m-auto w-full justify-center ">
+            Resume <Download size={16} />
+          </Button>
+        </div>
+      </div>
+
+      <!-- Desktop Actions -->
+      <div class="relative hidden sm:flex items-center gap-2 ml-4 lg:ml-6">
+        <!-- Contact Button (Desktop) -->
+        <Button url="javascript:void(0);" type="fill" className="md:flex mx-1">
+          Resume <Download size={16} />
+        </Button>
+
+        <span class="separator-line  hidden sm:inline-block bg-[rgba(183,202,255,0.5)] mt-[20px] -translate-y-1/2 w-px h-[20px]"></span>
+
+        <!-- Dark Mode Toggle (Desktop) -->
+        <div
+          id="darkToggle"
+          class="relative flex items-center h-9 px-2 gap-1.5 font-medium cursor-pointer rounded-full bg-gradient-to-b from-white to-[#edf1fa] border-[0.5px] border-[#f3f5ff] dark:from-neutral-800 dark:to-neutral-600 dark:border-neutral-600 transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95 mx-1"
+        >
+          <div
+            class="flex justify-center items-center flex-shrink-0 w-6 h-6 relative overflow-hidden rounded-full bg-gradient-to-b from-[#85a6ff] to-[#2d6dc3] border-[0.5px] border-[#7fa1ff]"
+            style="box-shadow: 0px 2px 3px 0 rgba(55,52,209,0.21);"
+          >
+            <SunMedium id="sun"
+               class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease" />
+            <Moon class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease"
+              id="moon" />
+          </div>
+          <span class="hidden sm:inline-block whitespace-nowrap">
+            <span id="dayText" class="flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Light</span>
+            <span id="nightText" class="hidden flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Dark</span>
+          </span>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Header container spacing optimization */
+  #header {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Ensure mobile menu doesn't stick to edges */
+  @media (max-width: 639px) {
+    #menu {
+      max-width: calc(100vw - 24px); /* 12px margin on each side */
+    }
+  }
+
+  /* Mobile menu animation */
+  @media (max-width: 639px) {
+    #menu {
+      transform: translateY(-10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    #menu:not(.hidden) {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  /* Menu item hover effect optimization */
+  nav a {
+    position: relative;
+  }
+
+  /* Desktop underline animation */
+  @media (min-width: 640px) {
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 70%;
+      height: 2px;
+      background: var(--color-primary);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 2px;
+    }
+
+    nav a:hover::after {
+      transform: translateX(-50%) scaleX(1);
+    }
+  }
+
+  /* Mobile menu item click feedback */
+  @media (max-width: 639px) {
+    nav a:active {
+      background-color: var(--color-neutral-100);
+    }
+
+    .dark nav a:active {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+
+  /* Dark mode toggle button optimization */
+  #darkToggle,
+  #darkToggleMobile {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile menu background blur effect enhancement */
+  @supports (backdrop-filter: blur(12px)) {
+    #mobileMenuBackground {
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 639px) {
+      #menu > div > div {
+        backdrop-filter: blur(16px);
+      }
+    }
+  }
+
+  /* Ensure Logo doesn't shrink on mobile */
+  .flex-shrink-0 {
+    min-width: fit-content;
+  }
+
+  /* Tablet compact layout */
+  @media (min-width: 640px) and (max-width: 767px) {
+    nav a {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      font-size: 0.8125rem;
+    }
+  }
+
+  /* Prevent horizontal scrolling on mobile */
+  @media (max-width: 639px) {
+    body {
+      overflow-x: hidden;
+    }
+  }
+
+  /* Optimize mobile touch feedback */
+  @media (max-width: 639px) {
+    button, a, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+
+  /* Menu background on small screens */
+  @media (max-width: 639px) {
+    #mobileMenuBackground {
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+
+    #mobileMenuBackground:not(.hidden) {
+      opacity: 1;
+    }
+  }
+
+  /* Ensure mobile menu has good shadow */
+  @media (max-width: 639px) {
+    #menu > div > div {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                  0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    }
+
+    .dark #menu > div > div {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+                  0 8px 10px -6px rgba(0, 0, 0, 0.2);
+    }
+  }
+</style>
+
+<script>
+  // Declare global types to fix TypeScript errors
+  declare global {
+    interface Window {
+      closeMobileMenu: () => void;
+    }
+  }
+
+  // Sync dark mode toggle between mobile and desktop
+  const darkToggle = document.getElementById('darkToggle');
+  const darkToggleMobile = document.getElementById('darkToggleMobile');
+
+  function syncDarkModeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const sunIcons = document.querySelectorAll('#sun, .mobile-sun');
+    const moonIcons = document.querySelectorAll('#moon, .mobile-moon');
+
+    if (isDark) {
+      moonIcons.forEach(icon => icon.classList.remove('hidden'));
+      sunIcons.forEach(icon => icon.classList.add('hidden'));
+      document.getElementById('dayText')?.classList.add('hidden');
+      document.getElementById('nightText')?.classList.remove('hidden');
+    } else {
+      sunIcons.forEach(icon => icon.classList.remove('hidden'));
+      moonIcons.forEach(icon => icon.classList.add('hidden'));
+      document.getElementById('dayText')?.classList.remove('hidden');
+      document.getElementById('nightText')?.classList.add('hidden');
+    }
+  }
+
+  // Sync on initialization
+  document.addEventListener('DOMContentLoaded', syncDarkModeIcons);
+
+  // Listen for dark mode changes
+  const observer = new MutationObserver(syncDarkModeIcons);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+
+  // Mobile dark mode toggle
+  darkToggleMobile?.addEventListener('click', () => {
+    darkToggle?.click();
+  });
+
+  // Optimize mobile menu open/close
+  const openMenu = document.getElementById('openMenu');
+  const closeMenu = document.getElementById('closeMenu');
+  const menu = document.getElementById('menu');
+  const mobileMenuBackground = document.getElementById('mobileMenuBackground');
+
+  // Mobile menu open function
+  function openMobileMenu() {
+    menu?.classList.remove('hidden');
+    mobileMenuBackground?.classList.remove('hidden');
+    openMenu?.classList.add('hidden');
+    closeMenu?.classList.remove('hidden');
+    closeMenu?.classList.add('flex');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  }
+
+  // Mobile menu close function
+  function closeMobileMenu() {
+    menu?.classList.add('hidden');
+    mobileMenuBackground?.classList.add('hidden');
+    closeMenu?.classList.add('hidden');
+    closeMenu?.classList.remove('flex');
+    openMenu?.classList.remove('hidden');
+    document.body.style.overflow = ''; // Restore scrolling
+  }
+
+  // Click hamburger button to open menu
+  openMenu?.addEventListener('click', openMobileMenu);
+
+  // Click close button to close menu
+  closeMenu?.addEventListener('click', closeMobileMenu);
+
+  // Click background to close menu
+  mobileMenuBackground?.addEventListener('click', closeMobileMenu);
+
+  // Add click-to-close functionality for mobile menu items
+  const menuLinks = menu?.querySelectorAll('a');
+  menuLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      // Check if in mobile view
+      if (window.innerWidth < 640) {
+        closeMobileMenu();
+      }
+    });
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 640) {
+      // If resizing from mobile to desktop, ensure menu state is correct
+      document.body.style.overflow = '';
+      if (menu?.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+      }
+    }
+  });
+
+  // Add to global scope so inline events can call it
+  window.closeMobileMenu = closeMobileMenu;
+</script>
