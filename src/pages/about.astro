@@ -20,18 +20,18 @@ import Toc from "@/components/widgets/Toc.astro";
 
 // Manually define page table of contents structure
 const headings = [
-  { depth: 2, slug: "about-me", text: "About Me" },
-  { depth: 2, slug: "expertise", text: "Expertise" },
-  { depth: 2, slug: "tool-stack", text: "Tool Stack" },
-  { depth: 2, slug: "experience", text: "Experience" },
-  { depth: 2, slug: "lets-connect", text: "Let's Connect" },
+  { depth: 2, slug: "about-me", text: "关于我" },
+  { depth: 2, slug: "expertise", text: "能力地图" },
+  { depth: 2, slug: "tool-stack", text: "常用工具" },
+  { depth: 2, slug: "experience", text: "经历" },
+  { depth: 2, slug: "lets-connect", text: "联系我" },
 ];
 
 const filtered = headings.filter(h => h.depth <= 3);
 
 ---
 
-<Layout title="About Me">
+<Layout title="关于我">
   <!-- Mobile TOC -->
   <div class="block lg:hidden px-7 pt-6">
     <Toc headings={filtered} />
@@ -59,7 +59,7 @@ const filtered = headings.filter(h => h.depth <= 3);
               id="about-me"
               class="text-2xl font-brand tracking-tight  sm:text-3xl lg:text-4xl"
             >
-             About Me
+             关于我
             </h2>
             <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
       </div>
@@ -90,7 +90,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-delay="200"
           data-aos-duration="500"
           data-aos-once="true"
-        >"Ship reliable systems. Tell honest stories. Keep learning."</p>
+        >「写可靠的服务，讲真实的故事，不停学习。」</p>
         <!-- <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div> -->
 
         <div
@@ -145,7 +145,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-duration="500"
           data-aos-once="true"
         >
-          I'm Li Chenkang, a computer science major from Jinggangshan, Jiangxi.
+          我是李陈康，来自景德镇艺术职业大学计算机专业。
         </p>
         <p
           class="text-neutral-700 pb-4 pt-4 leading-[1.8] dark:text-neutral-200"
@@ -154,7 +154,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-duration="500"
           data-aos-once="true"
         >
-          I focus on Java-first full-stack work—Spring Boot services, PostgreSQL, and Astro-driven interfaces. Inside the Jinggangshan University Innovation Lab I help classmates turn ideas into products, from campus task boards to research dashboards and developer tooling.
+          我的日常围绕 Java 全栈展开：使用 Spring Boot、PostgreSQL 构建服务，用 Astro 与 Tailwind 交付界面，再配合 Linux 服务器部署。实验室里同学的想法会变成任务看板、数据仪表盘或工具脚本，我负责把它们串起来。
 
         </p>
         <p
@@ -164,7 +164,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-duration="500"
           data-aos-once="true"
         >
-          I believe craftsmanship lives in the handoff between backend resilience and the tiny UI gestures people feel every day. My role is to architect dependable services, write approachable documentation, and leave behind systems that keep scaling even after I graduate.
+          我相信产品体验来自「稳定的后端 + 细腻的界面细节」，所以会先把服务设计好，再编写容易理解的文档、录屏和教程，让后来者能快速接手。毕业之后也希望这些系统继续为学校服务。
         </p>
 
 
@@ -176,7 +176,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-once="true"
         >
               <Button url="mailto:hello@lichenkang.dev" > <Mail  size={16} />  hello@lichenkang.dev</Button>
-              <Button url={siteConfig.resume} type="fill"> Resume <ArrowUpRight  size={16} /> </Button>
+              <Button url={siteConfig.resume || "#"} type="fill"> 履历（稍后补充） <ArrowUpRight  size={16} /> </Button>
         </div>
 
         <!-- <img src="/assets/about.jpg" class="relative z-30 w-full my-10 rounded-xl" /> -->
@@ -189,7 +189,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                 data-aos="fade-up-xs"
                 data-aos-duration="500"
                 data-aos-once="true"
-              >Expertise</h2>
+              >能力地图</h2>
               <div
                 class="list flex flex-wrap gap-3 mt-4 mb-12 w-full items-center justify-start"
                 data-aos="fade-up-xs"
@@ -202,7 +202,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Palette size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      Product Thinking
+                      产品思维
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Globe size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      Full-Stack Web
+                      全栈网页
                     </div>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Zap size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      DevOps & Automation
+                      DevOps 与自动化
                     </div>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Monitor size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      Rapid Prototyping
+                      快速原型
                     </div>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Code size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      API Engineering
+                      API 设计
                     </div>
                   </div>
                 </div>
@@ -247,7 +247,7 @@ const filtered = headings.filter(h => h.depth <= 3);
                   <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
                     <Smartphone size={22} />
                     <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      Interface Polish
+                      交互打磨
                     </div>
                   </div>
                 </div>
@@ -263,7 +263,7 @@ const filtered = headings.filter(h => h.depth <= 3);
             data-aos="fade-up-xs"
             data-aos-duration="500"
             data-aos-once="true"
-          >Tool Stack</h2>
+          >常用工具</h2>
           <div
             class="tool-stack-box relative bg-white border-accent/25 dark:bg-gray-900 rounded-xl overflow-hidden w-full h-[500px]"
             data-aos="fade-up-sm"
@@ -287,7 +287,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-duration="500"
           data-aos-once="true"
         >
-          Experience
+          经历
         </h2>
         <div
           class="px-5 py-10"
@@ -327,7 +327,7 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos="fade-up-xs"
           data-aos-duration="500"
           data-aos-once="true"
-        >Let's Connect</h2>
+        >保持联系</h2>
         <p
           class="text-sm leading-6 text-neutral-700 dark:text-neutral-300"
           data-aos="fade-up-xs"
@@ -335,13 +335,13 @@ const filtered = headings.filter(h => h.depth <= 3);
           data-aos-duration="500"
           data-aos-once="true"
         >
-          If you'd like early access to new campus tools or notes, <a
-            href={siteConfig.social.twitter}
+          想第一时间体验我做的校园工具或交流学习心得，可以<a
+            href={siteConfig.social.twitter || "#"}
             target="_blank"
-            class="text-indigo-500 underline">connect with me on 𝕏</a
-          >, or just send an <a href="mailto:hello@lichenkang.dev" class=" underline"
-            >email</a
-          > and let's build something together.
+            class="text-indigo-500 underline">给我留言</a
+          >，也欢迎直接<a href="mailto:hello@lichenkang.dev" class=" underline"
+            >发送邮件</a
+          >，我们一起把点子落地。
         </p>
       </section>
       </main>

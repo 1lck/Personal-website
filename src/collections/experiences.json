@@ -1,16 +1,16 @@
 [
 	{
-		"dates": "Sep 2022 · Present",
-		"role": "Full-Stack Student Developer",
-		"company": "JG University Innovation Lab",
-		"description": "Lead the backend for a campus-wide collaboration platform using Spring Boot, PostgreSQL, and Astro, translating research needs into reliable tools.",
+		"dates": "2023.09 - 至今",
+		"role": "校园创新实验室 · Java 全栈",
+		"company": "景德镇艺术职业大学",
+		"description": "负责实验室内部任务板、课题管理工具和 API 服务，主攻 Spring Boot 与 PostgreSQL，兼顾前端落地与部署。",
 		"logo": "/assets/experiences/company.jpg"
 	},
 	{
-		"dates": "Jul 2024 · Oct 2024",
-		"role": "Backend Engineering Intern",
-		"company": "Nanchang Cloud Foundry",
-		"description": "Shipped Java microservices for a logistics scheduling platform, owned integration testing, and instrumented services with Grafana, Prometheus, and OpenTelemetry.",
+		"dates": "2024.07 - 2024.10",
+		"role": "后端工程实习",
+		"company": "南昌云巢科技",
+		"description": "参与物流排程平台的微服务开发与集成测试，编写监控指标并整理成学习笔记分享给同学。",
 		"logo": "/assets/experiences/company.jpg"
 	}
 

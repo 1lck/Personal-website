@@ -1,8 +1,9 @@
 ---
-import { Mail, Moon, SunMedium,Download } from "@lucide/astro";
+import { Moon, SunMedium,Download } from "@lucide/astro";
 import menus from "@/collections/menu.json";
 import Button from "@/components/ui/Button.astro";
 import Logo from "@/components/ui/Logo.astro";
+import { siteConfig } from "@/config/site.js";
 ---
 
 <!-- This is an invisible div with relative position so that it takes up the height of the menu (because menu is absolute/fixed) -->
@@ -111,8 +112,8 @@ import Logo from "@/components/ui/Logo.astro";
 
         <!-- Contact Button (Mobile) -->
         <div class="relative z-10 w-full px-5 mt-3 sm:hidden">
-          <Button url="javascript:void(0);" type="fill" className="m-auto w-full justify-center ">
-            Resume <Download size={16} />
+          <Button url={siteConfig.resume || "#"} type="fill" className="m-auto w-full justify-center ">
+            简历（待更新） <Download size={16} />
           </Button>
         </div>
       </div>
@@ -120,8 +121,8 @@ import Logo from "@/components/ui/Logo.astro";
       <!-- Desktop Actions -->
       <div class="relative hidden sm:flex items-center gap-2 ml-4 lg:ml-6">
         <!-- Contact Button (Desktop) -->
-        <Button url="javascript:void(0);" type="fill" className="md:flex mx-1">
-          Resume <Download size={16} />
+        <Button url={siteConfig.resume || "#"} type="fill" className="md:flex mx-1">
+          简历（待更新） <Download size={16} />
         </Button>
 
         <span class="separator-line  hidden sm:inline-block bg-[rgba(183,202,255,0.5)] mt-[20px] -translate-y-1/2 w-px h-[20px]"></span>
@@ -141,8 +142,8 @@ import Logo from "@/components/ui/Logo.astro";
               id="moon" />
           </div>
           <span class="hidden sm:inline-block whitespace-nowrap">
-            <span id="dayText" class="flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Light</span>
-            <span id="nightText" class="hidden flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Dark</span>
+            <span id="dayText" class="flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">亮色</span>
+            <span id="nightText" class="hidden flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">暗色</span>
           </span>
         </div>
       </div>

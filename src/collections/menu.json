@@ -1,18 +1,18 @@
 [
 	{
-		"name": "Home",
+		"name": "首页",
 		"url": "/"
 	},
 	{
-		"name": "Writing",
+		"name": "文章",
 		"url": "/blog"
 	},
 	{
-		"name": "Works",
+		"name": "作品",
 		"url": "/works"
 	},
 	{
-		"name": "About",
+		"name": "关于我",
 		"url": "/about"
 	}
 ]

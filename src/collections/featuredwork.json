@@ -1,58 +1,58 @@
 [
 	{
-		"name": "CampusPulse",
-		"description": "Campus collaboration & scheduling platform.",
-		"tags": ["Full-Stack", "Java", "Astro"],
+		"name": "校园脉搏",
+		"description": "覆盖任务、课程与活动的协作平台，支撑我所在实验室的日常推进。",
+		"tags": ["全栈", "Java", "Astro"],
 		"image": "/assets/works/ricoog.jpg",
 		"video": "/assets/works/ricoog.mp4",
-		"url": "https://campuspulse.lichenkang.dev",
+		"url": "#",
 		"isShow": true
 	},
 	{
-		"name": "DataCanvas",
-		"description": "Gradient-powered data visualization toolkit for student research labs.",
-		"tags": ["Data Viz","Design Systems","Tools"],
+		"name": "数据画布",
+		"description": "以渐变语法为核心的数据可视化工具集，方便在课题路演中快速搭建图表。",
+		"tags": ["可视化","组件","工具"],
 		"image": "/assets/works/gradientshub.jpg",
 		"video": "/assets/works/gradientshub.mp4",
-		"url": "https://datacanvas.lichenkang.dev"
+		"url": "#"
 	},
 	{
-		"name": "Sunbird Talent",
-		"description": "Agency-style site template built for club recruiting and event landing pages.",
-		"tags": ["Template","Website","Recruiting"],
+		"name": "向阳社团",
+		"description": "为社团制作的招新与活动落地页模板，一套数据可复用多场活动。",
+		"tags": ["模板","活动","官网"],
 		"image": "/assets/works/luonmodels.jpg",
 		"video": "/assets/works/luonmodels.mp4",
 		"url": "/work/luonmodels"
 	},
 	{
-		"name": "Personal Hub",
-		"description": "A bilingual portfolio and blog documenting my experiments.",
-		"tags": ["Portfolio","Blog","Open Source"],
+		"name": "个人据点",
+		"description": "承载我所有笔记、文章与作品介绍的 Astro 驱动网站。",
+		"tags": ["作品集","博客","开源"],
 		"image": "/assets/works/ricoui.jpg",
 		"video": "/assets/works/ricoui.mp4",
 		"url": "/work/ricoblog2024"
 
 	},
 	{
-		"name": "Nova Valentines",
-		"description": "A stylized 3D asset pack for seasonal marketing campaigns.",
-		"tags": ["3D","Resources","Assets"],
+		"name": "Nova 节气 3D",
+		"description": "为校园媒体提供的 3D 元素合集，方便节日主视觉快速产出。",
+		"tags": ["3D","素材","活动"],
 		"image": "/assets/works/3d-valentines.jpg",
 		"video": "/assets/works/3d-valentines.mp4",
 		"url": "/work/3dvalentine"
 	},
 	{
-		"name": "DevKit Deck",
-		"description": "Curated tools, icons, and starters for design-minded developers.",
-		"tags": ["Resources","Toolkit","Community"],
+		"name": "DevKit 工具箱",
+		"description": "沉淀接口文档、脚本与 UI 套件，帮助同学更快入手开发。",
+		"tags": ["资源","工具"],
 		"image": "/assets/works/uiuxdeck.jpg",
-		"url": "https://toolkit.lichenkang.dev"
+		"url": "#"
 	},
 	{
-		"name": "Cosmos Archive",
-		"description": "An inspiration library I maintain for web storytelling patterns.",
-		"tags": ["Inspiration","Web Collection"],
+		"name": "Cosmos 档案馆",
+		"description": "收藏网页叙事灵感并整理点评，方便在课堂分享时引用。",
+		"tags": ["灵感","收藏"],
 		"image": "/assets/works/inspoweb.jpg",
-		"url": "https://cosmos.lichenkang.dev"
+		"url": "#"
 	}
 ]

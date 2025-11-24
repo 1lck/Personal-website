@@ -1,114 +1,34 @@
 ---
-title: Web Design Style Guide - Brutalism
+title: 成都实习手记：三个性能任务的拆解
 publishDate: 2025-06-13
 read: 8
-description: Web Design Style Guide - Brutalism
+description: 记录我在成都火耕技术有限公司完成的订单查询、导出和 CI/CD 优化。
 tags:
-  - Brutalism
-  - Web Design
-  - Design Style
+  - Java
+  - 性能优化
+  - 实习
 img: "/assets/blog/cover-brutalism.jpg"
-img_alt: "Brutalism"
+img_alt: "性能优化手记"
 ---
 
-## What is Brutalism in Web Design?
+2025 年初，我在成都火耕技术有限公司担任 Java 后端实习生。短短三个月，团队交给我三项“硬骨头”：订单查询性能、大数据量导出、CI/CD 自动化。以下是个人拆解。
 
-> Brutalism  US: ['bru:təlɪzəm]  UK: ['bru:təlɪzəm]  Brutalism; Raw style; Minimalist rugged style
->
-> * Brutalism: A design style originating from the architectural field, emphasizing raw, rough, and anti-traditional aesthetics, focusing on functionality rather than decoration, often using bold typography, asymmetric layouts, and strong contrasting colors.
+## 1. 订单查询接口优化
 
-The term "Brutalism" originates from the French term "béton brut," meaning "raw concrete." Initially, it was used to describe a rugged, exposed architectural style that emerged in the late 1940s and early 1950s. An architectural style that emerged in Britain in the 1950s, characterized by exposed concrete and stark geometric structures, spreading globally between the 1960s and 1970s.
+- **现状**：高并发下响应时间 320ms，影响交易体验。
+- **方案**：重构索引、拆分热表，把常用查询条件按业务特征组合；同时引入 Redis 缓存命中热点订单。
+- **验证**：通过 JMeter 模拟 2000+ QPS，响应降到 85ms。
 
-![](01.jpg "Tribunal de Contas / Aflalo y Gasperini
-São Paulo, 1971")
-*Tribunal de Contas / Aflalo y Gasperini São Paulo, 1971*
+## 2. 大数据量导出
 
-Brutalism is a raw, minimalist design style that values function over form and aesthetics. It's often characterized by an extremely simple, almost minimalist approach to layout and UI design. It's a bold, counter-intuitive interpretation of raw, striking visual design — and difficult to define with a definition, because it's essentially designed to challenge definition.
+- **现状**：同步导出 10 万条记录会超时，占用大量线程。
+- **方案**：使用 RabbitMQ 将导出任务异步化，消费者结合 EasyExcel 分批写入 OSS，用户通过轮询获取下载链接。
+- **结果**：接口响应从超时降到不足 1 秒，支持百万级数据导出。
 
-Like most emerging trends, Brutalism is a reaction to previous styles: a desire to discard earlier complex, ineffable ornate designs.
+## 3. CI/CD 流水线
 
-![](02.jpg "Banco de Londres y Sudamérica / Clorindo Testa
-Buenos Aires, 1966")
-*Banco de Londres y Sudamérica / Clorindo Testa Buenos Aires, 1966*
+- **现状**：手动发布要 1.5 小时，容易漏步骤。
+- **方案**：参与搭建 GitLab CI/CD，划分单元测试、打包、部署三阶段，在测试环境自动化部署并生成 Swagger 文档。
+- **结果**：发版时间缩短到 20 分钟，团队协作效率明显提升。
 
-## Why Did Brutalism Rise in Web Design?
-
-Early web iterations all focused on raw functionality and content: crudely coded HTML websites and bold 90s design themes conceptually naturally resembled architecture's rugged, exposed structure defining characteristics. This itself was a practical issue. As times developed, web pages gradually became what we see today (the vast majority) — reasonably laid out, following user experience, emphasizing aesthetics and color theory, etc. Thought, culture, aesthetics, and needs are diverse, as are pursuits for web pages. Mainstream web pages pursue advanced beauty and perfect experience, which also provided soil for Brutalism's development.
-
-Some people believe that mainstream web pages' advanced aesthetics and experience create a beautiful illusion, making people subconsciously ignore potentially unethical and malicious real intentions hidden behind web pages. The popularity of Brutalist web design perhaps also reflects people's hope that the internet can be more transparent and direct. People hope that websites' underlying logic and real intentions can be as clear at a glance as Brutalist architecture displays its raw materials and social philosophy.
-
-## Characteristics of Brutalist Web Design
-
-### Unconventional Color Schemes
-
-Brutalism in the architectural field often uses large amounts of gray, black, brown and other cold-toned color schemes. Web Brutalism is different, using more glaring, conflicting color combinations for design, going against mainstream web aesthetics and color theory.
-
-"We don't need everything that meets our eyes to be perfect."
-
-![](kaskadproject.jpg "")
-*https://kaskadproject.com/*
-
-
-
-### Non-Standard Navigation and Information Hierarchy Design
-
-Typically, UX/UI designers follow user experience principles and reasonable information hierarchy to reduce user cognitive load and improve website navigation convenience. Brutalism is the opposite, preferring to use non-standard navigation and rugged information display methods.
-
-![](namespace.jpg "")
-*https://namespace.studio/*
-
-
-
-### Raw and Rough Design Philosophy
-
-From layout and typography to color matching, Brutalist websites intentionally create a raw and unpolished environment. This can find inspiration and origins from mid-20th century architecture. Due to era background and atmosphere influence, architecture emphasized raw, rough appearance, presenting concrete's real texture without excessive embellishment.
-
-Reminds people of the early internet's web page state without design layout and beautification, a design philosophy going against current mainstream web culture, abandoning beautification and decoration, displaying real and rough essence.
-
- ![](wiki.jpg "")
-*https://en.wikipedia.org/wiki/Main_Page*
-
-
-
-### Repetitive, Unique Shapes and Patterns
-
-Brutalist style web design typically contains repetitive shapes or patterns, or unique two-dimensional, three-dimensional graphics, maintaining a unique visual experience. It often finds elements and inspiration from last century's Brutalist architecture, continuing and imitating Brutalist architecture's geometric characteristics philosophy.
-
-![](studio-job.jpg "")
-*https://www.studio-job.com/*
-
-### Visual Impact and Oppression
-
-Brutalist period architecture's massive unadorned exposed concrete and stark geometric structures bring a raw beast-like sense of oppression. This visual experience also extends to Brutalist web design, and web applications are bolder and more free-spirited. Especially contrasted with mainstream culture pursuing delicate experience and beauty, Brutalist web pages appear more rebellious and alienated.
-
-![](src-plus.jpg "")
-*https://src.plus/*
-
-### Brutalist Style Website Inspiration
-
-#### brutalistwebsites.com
-
-brutalistwebsites.com - this website's content is as direct as its name, collecting Brutalist style web pages. Content is just a brief introduction and cases. "In its ruggedness and disregard for appearing comfortable or easy, Brutalism can be seen as the younger generation's rebellion against today's web design's lightness, optimism and frivolity."
-
-![](brutalistwebsites.jpg "")
-*https://brutalistwebsites.com/*
-
-#### awwwards-brutalism
-
-Awwwards is a well-known web design inspiration and award platform. The collection specifically gathers Brutalist style web design works for designers to gain inspiration. This collection is more excellent in design sense and interactive animation aspects.
-
-
-![](awwwards.jpg "")
-*https://awwwards.com/awwwards/collections/brutalism/*
-
-
-
-## Summary
-
-Brutalist web design doesn't mean abandoning design, but directly displaying the website's "skeleton" - like using the most basic typography, buttons and links, without excessive decoration. Doing this aims to let users see the website's structure and intent at a glance, reducing misleading and hiding, making everything "out in the open." Pulling attention back to content and functionality, making it easier for users to find information they need.
-
-Brutalism's "roughness" is actually an attitude, conveying the website's unique temperament and rebellious spirit. It challenges mainstream aesthetics, not afraid to "look imperfect," instead using this "primitive sense" to express authenticity and self.
-
-Design is a cycle. Brutalism from birth to today, like tides ebbing and flowing. Of course in each era it combines with that era's characteristics and cultural philosophy, blending out new design styles and thoughts.
-
-For example, Neo-Brutalism, Postmodern Brutalism, Industrial Brutalism, Cyber Brutalism, etc., are all products of era pursuits and retro trends merging. These styles originate from Brutalism's raw power and functional core, but through combination with other aesthetics or functional needs, formed diversified derivative schools.
+这次实习让我意识到性能指标必须用数据说话，更让我熟悉了从压测到发布的完整流程。

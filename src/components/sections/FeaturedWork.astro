@@ -22,8 +22,8 @@ interface Project {
 }
 
 const {
-  title = "Featured Work",
-  description = "A selection of projects I've worked on. From web applications to design systems, each project represents a unique challenge and learning experience.",
+  title = "精选作品",
+  description = "这些作品覆盖课堂实验、实验室协作与个人兴趣，展示我如何把 Java 与界面实现结合。",
   showAll = false,
   limit
 } = Astro.props;
@@ -104,7 +104,7 @@ const shouldShowViewAll = limit !== undefined
     {shouldShowViewAll && (
       <div class="flex items-center justify-center pt-4">
         <Button url="/works" className="w-full max-w-60">
-          See All Works
+          查看全部作品
         </Button>
       </div>
     )}

@@ -11,19 +11,18 @@ import Explore from "@/components/sections/Explore.astro";
 ---
 
 <Layout
-title="Li Chenkang · Portfolio 2025"
-description="Portfolio of Li Chenkang — computer science student from Jinggangshan focusing on Java-first full-stack products for campus life and developer tooling."
-keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
+title="李陈康 · Java 学习记录"
+description="景德镇艺术职业大学计算机专业学生李陈康，用中文记录 Java 全栈开发、校园项目与学习心得。"
+keywords="李陈康, 景德镇艺术职业大学, Java, 校园项目, 个人网站"
 >
   <div
     class="relative site-container z-20  w-full mx-auto mt-16 px-4 md:mt-18 lg:mt-20 xl:px-0"
   >
     <div class="relative w-full px-4 flex flex-col items-center justify-between md:flex-row mb-16 ">
       <div class="relative w-full md:max-w-[420px] md:w-1/2 text-center sm:text-left sm:-mt-8">
-        <!-- Title - AnimatedText animation -->
         <h1 class="mb-4">
           <AnimatedText
-            content="Hi, I'm Li Chenkang"
+            content={`Hello，I am 李陈康`}
             delay={0.1}
             duration={0.5}
             stagger={0.08}
@@ -31,10 +30,9 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
           />
         </h1>
 
-        <!-- First description - AnimatedText animation -->
         <div class="mb-2">
           <AnimatedText
-            content="I'm a computer science student from Jinggangshan, Jiangxi, shaping Java-first backend services and polished front-end touchpoints."
+            content="目前就读于景德镇艺术职业大学计算机专业，专注 Java 后端与校园产品的全栈实现。"
             delay={0.3}
             duration={0.5}
             stagger={0.015}
@@ -42,10 +40,9 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
           />
         </div>
 
-        <!-- Second description - AnimatedText animation -->
         <div class="mb-4">
           <AnimatedText
-            content="Right now I'm building campus collaboration tools, documenting everything I learn, and making tech feel approachable to my peers."
+            content="我喜欢把课堂知识落地成真实的服务，让同学和老师都能直接使用，也把过程记录成图文与开源笔记。"
             delay={0.5}
             duration={0.5}
             stagger={0.015}
@@ -53,20 +50,17 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
           />
         </div>
 
-        <!-- Button - AOS animation -->
         <div
-          class=""
           data-aos="fade-up-sm"
           data-aos-delay="900"
           data-aos-duration="500"
           data-aos-once="true"
         >
-          <Button url={siteConfig.social.twitter} type="fill" className="m-auto mt-4 text-center sm:text-left sm:m-0 sm:mt-6 max-w-[200px]">
-            Say hi on 𝕏
+          <Button url={siteConfig.social.twitter || '#'} type="fill" className="m-auto mt-4 text-center sm:text-left sm:m-0 sm:mt-6 max-w-[200px]">
+            写信给我
           </Button>
         </div>
 
-        <!-- Social Cards - AOS animation -->
         <div
           class="social mt-8 mb-8"
           data-aos="fade-up-sm"
@@ -78,7 +72,6 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
         </div>
       </div>
 
-      <!-- HeroCard - AOS animation -->
       <div
         class="relative justify-end w-full mt-16 md:flex md:pl-10 md:w-1/2 md:mt-0 md:translate-y-4 xl:translate-y-0"
         data-aos="fade-left-sm"
@@ -88,8 +81,8 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
       >
         <HeroCard
           imageUrl="/assets/home/gradientshub.jpg"
-          title="CampusPulse"
-          link="https://campuspulse.lichenkang.dev"
+          title="校园脉搏 · 协同平台"
+          link="#"
         />
       </div>
     </div>
@@ -102,7 +95,7 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
     data-aos-duration="600"
     data-aos-once="true"
   >
-    <Explore title="Explore Projects" />
+    <Explore title="探索我的日常" description="课程实验、实验室项目、工具收藏，一次呈现。" />
   </section>
 
   <section
@@ -112,7 +105,7 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
     data-aos-duration="600"
     data-aos-once="true"
   >
-    <FeaturedWork title="Featured Projects" description="Tooling, platforms, and open resources crafted to serve classmates, student clubs, and fellow builders." limit={5} />
+    <FeaturedWork title="精选作品" description="这些作品来自课题实践、社团协作与个人兴趣。每一个都承载着我在 Java 与前端之间的探索。" limit={5} />
   </section>
 
   <section
@@ -123,8 +116,8 @@ keywords="Li Chenkang, Portfolio, Java, Full-Stack, Backend, Campus Projects"
     data-aos-once="true"
   >
     <BlogSection
-      title="Latest Notes"
-      description="I write about Java, Astro, backend patterns, and the stories behind my campus experiments."
+      title="最新记录"
+      description="记录学习心得、项目拆解与校园生活感悟，全部中文呈现，方便同学查阅。"
       showViewAllButton={true}
     />
   </section>

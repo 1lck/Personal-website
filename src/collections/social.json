@@ -1,64 +1,64 @@
 [
 	{
         "id": 1,
-		"name": "Github",
-        "username": "lichenkang",
+		"name": "代码仓库",
+        "username": "敬请期待",
 		"image": "/assets/social/social-github.jpg",
-		"url": "https://github.com/lichenkang"
+		"url": "#"
 	},
 
 	{
         "id": 2,
-		"name": "Xiaohongshu",
-        "username": "lck_dev",
+		"name": "学习手账",
+        "username": "整理中",
 		"image": "/assets/social/social-xiaohongshu.jpg",
-		"url": "https://www.xiaohongshu.com/user/profile/lichenkang"
+		"url": "#"
 	},
 
     {
         "id": 3,
-		"name": "Twitter",
-        "username": "lichenkangdev",
+		"name": "技术随想",
+        "username": "等待补充",
 		"image": "/assets/social/social-twitter.jpg",
-		"url": "https://x.com/lichenkangdev"
+		"url": "#"
 	},
 
     {
         "id": 4,
-		"name": "Gumroad",
-        "username": "lichenkang",
+		"name": "资料分享",
+        "username": "整理中",
 		"image": "/assets/social/social-gumroad.jpg",
-		"url": "https://lichenkang.gumroad.com/"
+		"url": "#"
 	},
 
     {
         "id": 5,
-		"name": "Behance",
-        "username": "lichenkang",
+		"name": "设计灵感",
+        "username": "准备上线",
 		"image": "/assets/social/social-behance.jpg",
-		"url": "https://www.behance.net/lichenkang"
+		"url": "#"
 	},
 
     {
         "id": 6,
-		"name": "figma",
-        "username": "lichenkang",
+		"name": "Figma 文件",
+        "username": "制作中",
 		"image": "/assets/social/social-figma.jpg",
-		"url": "https://www.figma.com/@lichenkang",
+		"url": "#",
         "isShow": false
 	},
 
     {
         "id": 7,
-		"name": "Dribbble",
-        "username": "lichenkang",
+		"name": "界面草稿",
+        "username": "筹备中",
 		"image": "/assets/social/social-dribbble.jpg",
-		"url": "https://dribbble.com/lichenkang"
+		"url": "#"
 	},
 
     {
         "id": 8,
-		"name": "Email",
+		"name": "邮箱",
         "username": "hello@lichenkang.dev",
 		"image": "/assets/social/social-email.jpg",
 		"url": "mailto:hello@lichenkang.dev"
