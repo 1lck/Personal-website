@@ -1,11 +1,19 @@
 # 李陈康 · 个人作品集网站
 
-> 一个基于 Astro + Tailwind CSS + Spring Boot 的全栈个人网站，专为展示技术能力和项目经验而设计。
+> 一个现代化的全栈个人作品集网站，采用前后端分离架构，专为技术人员打造的展示平台。
 
 [![Astro](https://img.shields.io/badge/Astro-4.0-BC52EE?logo=astro)](https://astro.build)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot)](https://spring.io/projects/spring-boot)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?logo=tailwind-css)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+## 📝 项目简介
+
+这是一个基于 **Astro** + **Tailwind CSS** + **Spring Boot** 打造的全栈个人作品集网站。项目采用前后端分离架构，前端使用现代化的 Astro 框架结合 Tailwind CSS 实现优雅的 UI 设计和流畅的用户体验，后端基于 Spring Boot 3 构建 RESTful API，使用轻量级的 SQLite 数据库存储数据，无需复杂的数据库配置即可快速部署。
+
+项目的核心亮点在于其完善的**内容管理系统**，提供了独立的管理后台，支持在线管理个人信息、技术博客、项目作品等内容，无需修改代码即可更新网站内容。同时，网站具备完整的 SEO 优化、响应式设计、暗色模式支持等特性，适合作为个人技术博客、作品集展示、求职简历网站使用。
+
+无论你是正在求职的应届生，还是希望建立个人技术品牌的开发者，这个项目都能为你提供一个专业、美观且易于维护的在线展示平台。项目采用 MIT 协议开源，可自由修改和部署。
 
 ## ✨ 功能特性
 
