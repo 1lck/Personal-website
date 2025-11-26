@@ -36,3 +36,7 @@ Thumbs.db
 *.tmp
 *.temp
 .cache/
+
+# Backend artifacts
+backend/target/
+storage/

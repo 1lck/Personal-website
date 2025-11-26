@@ -1,51 +1,48 @@
 ---
-title: 图标资源怎么选？我常用的 8 个开源库
+title: 我常用的 8 个 Java 开源库
 publishDate: 2025-08-27
 read: 8
-description: 作为 Java 开发者兼设计爱好者，我把常用的图标资源整理成一篇中文指南。
+description: 从校园项目到实习，这些 Java 库帮助我快速交付高质量代码。
 tags:
-  - 资源分享
-  - 图标
-  - 前端
+  - Java
+  - 开源
+  - 工具
 img: "/assets/blog/cover-free-icon-library.jpg"
-img_alt: "图标资源指南"
+img_alt: "Java 开源库"
 ---
 
-虽然主修 Java，但做校园项目时仍需要一套统一的图标。为了不在矢量软件里“画到秃头”，我长期维护一个图标资源清单，下面挑 8 个常用库分享给大家。
+除了框架本身，我在开发中最依赖的其实是一套“工具库组合拳”。以下 8 个开源项目分别解决了日志、校验、性能、对象拷贝等痛点，也是我在校园项目、实习任务中频繁引用的利器。
 
-## 1. Lucide
-- **类型**：线性风格，1600+ 图标。
-- **使用场景**：在 Astro、React 项目中直接按需引入，支持自定义描边。
+## 1. Hutool
 
-## 2. Remix Icon
-- **特点**：语义覆盖全面，提供 Figma 文件。
-- **做法**：在校园项目里配合 Tailwind，很容易保持统一风格。
+集合工具、HTTP、Excel、ID 生成等常用能力。Spring Boot 项目里经常需要字符串处理、加解密、时间格式化，用 Hutool 可以省下大量样板代码。
 
-## 3. Heroicons
-- **来源**：Tailwind 团队维护，Outline/Solid/Mini 多种尺寸。
-- **经验**：后台管理系统直接选 Solid 版，阅读性最好。
+## 2. MapStruct
 
-## 4. Iconsax
-- **亮点**：多风格切换，适合需要品牌感的页面。
-- **技巧**：把色彩映射成 CSS 变量，方便暗色模式适配。
+DTO 与实体转换神器。以往手写 `BeanUtils.copyProperties` 既慢又容易漏字段，MapStruct 通过注解生成类型安全的 Mapper，并支持自定义表达式。
 
-## 5. QingIcon
-- **国产宝藏**：Asorn & 胡蝶维护，附带插画库。
-- **适合**：政务与 B 端项目，线条规整。
+## 3. Sa-Token
 
-## 6. Circum Icons
-- **特点**：圆环外形识别度高，适合导航或流程步骤。
+轻量级权限框架，兼容不同认证模式。在竞赛管理系统和“趣游兔”两个项目里，我都基于 Sa-Token 实现了多角色、多租户的权限控制。
 
-## 7. Iconoir
-- **优点**：React/Vue/Flutter 全覆盖，品牌图标完善。
+## 4. Resilience4j
 
-## 8. Doodle Icons
-- **风格**：手绘式，适合校园活动或内容页的小插画。
+熔断、限流、隔仓必备。结合 Spring Boot Actuator 能实时查看状态，配合 Prometheus 监控非常方便。
 
-## 如何在项目中管理图标
+## 5. MyBatis-Plus
 
-1. **统一出口**：在前端创建 `icons.ts`，所有图标都从这里导出，方便替换。
-2. **命名规范**：按照业务语义（如 `IconOrder`, `IconSchedule`），别直接用资源名。
-3. **配色策略**：用 `currentColor`，结合主题色或 CSS 变量，省去重复修改。
+自动 CRUD、Wrapper 条件构造器、逻辑删除等特性显著提升开发效率。再配合租户插件就能够快速实现数据隔离。
 
-如果你也有好用的资源库，欢迎回复告诉我；我会继续把它们整理到 GitHub（[github.com/1lck](http://github.com/1lck)）的资料区里。
+## 6. EasyExcel
+
+在成都火耕的实习中，我们需要导出百万级订单数据，EasyExcel 的分批写出和流式处理帮我轻松搞定。
+
+## 7. Thumbnailator
+
+处理图片的 Java 库，在 VR 模块中负责压缩、裁剪和生成多分辨率切片，搭配定时任务即可自动化处理大批量资源。
+
+## 8. SpringDoc / Swagger
+
+文档永远是沟通的桥梁。SpringDoc 能自动暴露 OpenAPI 文档，我们的 CI/CD 流水线会在测试环境部署后自动生成接口说明，方便前后端联调。
+
+欢迎把你喜欢的 Java 库分享给我，大家一起扩展工具箱。

@@ -17,8 +17,8 @@ import Button from "@/components/ui/Button.astro";
 import Matter from "@/components/ui/Matter.astro";
 import Layout from "@/layouts/Layout.astro";
 import Toc from "@/components/widgets/Toc.astro";
+import { apiClient, type Profile } from "@/lib/apiClient";
 
-// Manually define page table of contents structure
 const headings = [
   { depth: 2, slug: "about-me", text: "关于我" },
   { depth: 2, slug: "expertise", text: "能力地图" },
@@ -27,323 +27,373 @@ const headings = [
   { depth: 2, slug: "lets-connect", text: "联系我" },
 ];
 
-const filtered = headings.filter(h => h.depth <= 3);
+const filtered = headings.filter((h) => h.depth <= 3);
 
+let profile: Profile | null = null;
+let profileError: string | null = null;
+
+try {
+  profile = await apiClient.fetchProfile();
+} catch (error) {
+  profileError = error instanceof Error ? error.message : "无法加载简介数据";
+}
+
+const displayName = profile?.fullName ?? "李陈康";
+const pageTitle = `关于${displayName}`;
+const avatarImage = profile?.heroImageUrl ?? "/assets/avatar.png";
+const headlineQuote = profile?.headline ?? "热爱挑战、追求卓越的Java后端工程师，专注于构建高性能、高可用的分布式系统。";
+const heroSubtitle = profile?.jobTitle ?? "Java后端开发工程师 · 2026届本科生";
+const aboutParagraphs = profile?.bio
+  ? profile.bio.split(/\r?\n+/).map((paragraph) => paragraph.trim()).filter(Boolean)
+  : [
+      "我是李陈康，一名将于2026年毕业的计算机科学与技术专业本科生。在校期间，我不仅以优异的成绩掌握了扎实的计算机理论基础，更通过多项实习和项目实践，将知识转化为解决复杂工程问题的能力。",
+      "我的技术栈以 Java 和 Spring Boot 为核心，并深入学习和应用了 Spring Cloud 微服务生态系统。在数据库方面，我熟练使用 MySQL 并进行SQL优化，同时擅长运用 Redis 作为缓存和分布式锁提升系统性能。我具备丰富的消息队列 RabbitMQ 应用经验，用于实现系统解耦和异步处理。",
+      "在武汉赢派有限公司实习期间，我独立负责了『趣游兔』旅游系统的核心架构设计与实现，成功交付了覆盖8大业务域的60+个API，系统稳定性超过99.9%。我通过多租户架构、VR全景优化、SSE流式推送等技术方案，显著提升了系统性能和用户体验。",
+      "我相信技术的价值在于解决实际问题。我不仅仅满足于实现功能，更致力于思考如何让系统更稳定、高效和易用。"
+    ];
+const emailAddress = profile?.email ?? "2188718831@qq.com";
+const contactButtonUrl = profile?.primaryCtaLink ?? (emailAddress ? `mailto:${emailAddress}` : "#");
+const contactButtonLabel = profile?.primaryCtaLabel ?? "联系我";
+const resumeUrl = profile?.secondaryCtaLink ?? profile?.resumeUrl ?? (siteConfig.resume || "#");
+const resumeButtonLabel = profile?.secondaryCtaLabel ?? (resumeUrl === "#" ? "履历（稍后补充）" : "查看履历");
+const githubLink = profile?.socialLinks?.github || "https://github.com/1lck";
+const githubHandle = "@1lck";
+const contactLineParts = [
+  profile?.wechat ? `VX：${profile.wechat}` : null,
+  profile?.phone ? `电话：${profile.phone}` : null,
+  emailAddress ? `邮箱：${emailAddress}` : null
+].filter(Boolean) as string[];
+const contactLine =
+  contactLineParts.length > 0 ? contactLineParts.join(" · ") : "电话：15779197185 · 邮箱：2188718831@qq.com";
 ---
 
-<Layout title="关于我">
+<Layout title={pageTitle}>
   <!-- Mobile TOC -->
   <div class="block lg:hidden px-7 pt-6">
     <Toc headings={filtered} />
   </div>
 
-  <!-- Main container -->
-  <div class="relative site-container  mx-auto my-8">
+  <div class="relative site-container mx-auto my-8">
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 xl:gap-16">
-      <!-- Left TOC - Fixed on desktop -->
-      <aside class="relative hidden lg:block lg:w-40 xl:w-50 flex-shrink-0">
-          <div class="toc-sticky-wrapper">
-            <Toc headings={filtered} />
-          </div>
+      <aside class="relative hidden lg:block lg:w-40 xl:w-56 flex-shrink-0">
+        <div class="toc-sticky-wrapper">
+          <Toc headings={filtered} />
+        </div>
       </aside>
 
-      <!-- Right main content - Adaptive width -->
-      <main class="relative flex-1 min-w-0 w-full lg:max-w-none">
-        <div
-          class="w-full"
-          data-aos="fade-up-xs"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-            <h2
-              id="about-me"
-              class="text-2xl font-brand tracking-tight  sm:text-3xl lg:text-4xl"
-            >
-             关于我
-            </h2>
-            <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
-      </div>
-
-        <div
-          class="flex items-center gap-3 mb-6"
-          data-aos="fade-up-xs"
-          data-aos-delay="100"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-            <img src="/assets/avatar.png" alt="Li Chenkang" class="w-14 h-14 rounded-full">
-            <div class="flex items-center gap-3">
-              <a href="https://lichenkang.dev/" target="_blank" class="font-brand text-[24px] text-neutral-700 dark:text-neutral-100">Li Chenkang</a>
-              <span class="text-[0.75em] text-neutral-400">|</span>
-              <a href="https://x.com/lichenkangdev" class="flex items-center gap-1 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200 text-sm" target="_blank">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-4.5 h-4.5 fill-current">
-                  <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
-                </svg>
-                @lichenkangdev
-              </a>
-            </div>
-        </div>
-
-        <p
-          class="text-3xl mt-2 mb-2  font-brand italic text-left text-primary-strong dark:text-primary-light"
-          data-aos="fade-up-xs"
-          data-aos-delay="200"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >「写可靠的服务，讲真实的故事，不停学习。」</p>
-        <!-- <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div> -->
-
-        <div
-          class="social"
-          data-aos="fade-up-xs"
-          data-aos-delay="300"
-          data-aos-duration="600"
-          data-aos-once="true"
-        >
-             <div class="social-list flex flex-wrap gap-2 items-center justify-start mt-6 mb-8">
-                {social
-                  .filter(item => item.isShow !== false)
-                  .map((item, index) => (
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="social-item relative group overflow-hidden rounded-xl transition-all duration-300 hover:-translate-y-2 hover:rotate-[-6deg] hover:shadow-lg"
-                      data-aos="fade-up-xs"
-                      data-aos-delay={400 + (index * 50)}
-                      data-aos-duration="400"
-                      data-aos-once="true"
-                    >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        class="w-[96px] h-[96px] rounded-xl object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div class="absolute bottom-[10px] left-[12px] z-10">
-                        <div class="social-name font-semibold text-[10px] text-white drop-shadow-md">
-                          {item.name}
-                        </div>
-                        <div class="social-username text-[9px] text-white/85 drop-shadow-sm">
-                          @{item.username}
-                        </div>
-                      </div>
-                      {/* Hover overlay */}
-                      {/* <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div> */}
-                    </a>
-                  ))
-                }
-             </div>
-        </div>
-
-        <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
-
-
-        <p
-          class="text-xl font-medium text-left text-neutral-800 dark:text-neutral-100"
-          data-aos="fade-up-xs"
-          data-aos-delay="100"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          我是李陈康，来自景德镇艺术职业大学计算机专业。
-        </p>
-        <p
-          class="text-neutral-700 pb-4 pt-4 leading-[1.8] dark:text-neutral-200"
-          data-aos="fade-up-xs"
-          data-aos-delay="200"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          我的日常围绕 Java 全栈展开：使用 Spring Boot、PostgreSQL 构建服务，用 Astro 与 Tailwind 交付界面，再配合 Linux 服务器部署。实验室里同学的想法会变成任务看板、数据仪表盘或工具脚本，我负责把它们串起来。
-
-        </p>
-        <p
-          class="text-neutral-700  leading-[1.8] dark:text-neutral-200"
-          data-aos="fade-up-xs"
-          data-aos-delay="300"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          我相信产品体验来自「稳定的后端 + 细腻的界面细节」，所以会先把服务设计好，再编写容易理解的文档、录屏和教程，让后来者能快速接手。毕业之后也希望这些系统继续为学校服务。
-        </p>
-
-
-        <div
-          class="mt-8 mb-16 flex item-center justify-start gap-3"
-          data-aos="fade-up-xs"
-          data-aos-delay="400"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-              <Button url="mailto:hello@lichenkang.dev" > <Mail  size={16} />  hello@lichenkang.dev</Button>
-              <Button url={siteConfig.resume || "#"} type="fill"> 履历（稍后补充） <ArrowUpRight  size={16} /> </Button>
-        </div>
-
-        <!-- <img src="/assets/about.jpg" class="relative z-30 w-full my-10 rounded-xl" /> -->
-
-        <div class="w-full border-b-1 border-dashed border-b-neutral-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
-          <section>
-              <h2
-                id="expertise"
-                class="mt-8 mb-2 text-[28px] text-neutral-800  dark:text-neutral-200 font-brand"
-                data-aos="fade-up-xs"
-                data-aos-duration="500"
-                data-aos-once="true"
-              >能力地图</h2>
-              <div
-                class="list flex flex-wrap gap-3 mt-4 mb-12 w-full items-center justify-start"
-                data-aos="fade-up-xs"
-                data-aos-delay="100"
-                data-aos-duration="600"
-                data-aos-once="true"
-              >
-                <!-- Product Design -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4 rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800 dark:text-neutral-200 ">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Palette size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      产品思维
-                    </div>
-                  </div>
-                </div>
-                <!-- Website Design -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4  rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Globe size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      全栈网页
-                    </div>
-                  </div>
-                </div>
-                <!-- Brand Design -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4  rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Zap size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      DevOps 与自动化
-                    </div>
-                  </div>
-                </div>
-                <!-- Prototyping -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4  rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Monitor size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      快速原型
-                    </div>
-                  </div>
-                </div>
-                <!-- Development -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4  rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Code size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      API 设计
-                    </div>
-                  </div>
-                </div>
-                <!-- UI/UX Design -->
-                <div class="item flex justify-start items-start flex-grow-0 flex-shrink-0 overflow-hidden gap-2 px-5 py-4  rounded-xl  bg-gradient-to-b from-[f7f8f0] to-[#f1f2f9]  dark:from-gray-900 dark:to-gray-800">
-                  <div class="flex justify-center items-center flex-grow-0 flex-shrink-0 gap-2">
-                    <Smartphone size={22} />
-                    <div class="flex-grow-0 flex-shrink-0 text-base font-medium text-left text-neutral-700 dark:text-neutral-200">
-                      交互打磨
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </section>
-
-        <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
-
-        <section>
-          <h2
-            id="tool-stack"
-            class="mt-12 mb-4 text-[28px] text-neutral-800  dark:text-neutral-200 font-brand"
+      <main class="relative flex-1 min-w-0 w-full lg:max-w-none space-y-8">
+        <section id="about-me" class="space-y-6">
+          <div
+            class="w-full"
             data-aos="fade-up-xs"
             data-aos-duration="500"
             data-aos-once="true"
-          >常用工具</h2>
+          >
+            <h2 class="text-3xl font-brand tracking-tight sm:text-4xl text-neutral-900 dark:text-white">
+              关于 {displayName}
+            </h2>
+            <div class="mt-3 text-neutral-500 dark:text-neutral-400">{heroSubtitle}</div>
+            <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700 mt-4 mb-8"></div>
+          </div>
+
           <div
-            class="tool-stack-box relative bg-white border-accent/25 dark:bg-gray-900 rounded-xl overflow-hidden w-full h-[500px]"
-            data-aos="fade-up-sm"
+            class="flex items-center gap-3 mb-6"
+            data-aos="fade-up-xs"
             data-aos-delay="100"
+            data-aos-duration="500"
+            data-aos-once="true"
+          >
+            <img src={avatarImage} alt={displayName} class="w-16 h-16 rounded-full object-cover" />
+            <div class="flex items-center gap-3 text-sm text-neutral-500 dark:text-neutral-400 flex-wrap">
+              <span class="font-brand text-xl text-neutral-800 dark:text-neutral-100">{displayName}</span>
+              <span>｜</span>
+              <a href={githubLink} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 hover:text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                {githubHandle}
+              </a>
+            </div>
+          </div>
+
+          {profileError && (
+            <div class="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-600 dark:border-amber-900/40 dark:bg-amber-900/20">
+              {profileError}
+            </div>
+          )}
+
+          <p
+            class="text-2xl font-brand italic text-primary-strong dark:text-primary-light"
+            data-aos="fade-up-xs"
+            data-aos-delay="150"
+            data-aos-duration="500"
+            data-aos-once="true"
+          >
+            {headlineQuote}
+          </p>
+
+          <div
+            class="social"
+            data-aos="fade-up-xs"
+            data-aos-delay="250"
             data-aos-duration="600"
             data-aos-once="true"
           >
-              <Matter />
-              <!-- Fallback content if Matter.js doesn't load -->
-              <div class="absolute inset-0 flex items-center justify-center text-white opacity-50">
+            <div class="flex flex-wrap gap-3 mt-4 mb-6">
+              {social
+                .filter((item) => item.isShow !== false)
+                .map((item, index) => (
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="social-item relative group overflow-hidden rounded-xl transition-all duration-300"
+                    data-aos="fade-up-xs"
+                    data-aos-delay={300 + index * 50}
+                    data-aos-duration="400"
+                    data-aos-once="true"
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      class="w-[96px] h-[96px] rounded-xl object-cover transition-all duration-300 group-hover:scale-110"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-100 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-2 left-3 z-10 transition-all duration-300 group-hover:translate-x-1">
+                      <div class="text-xs font-semibold text-white drop-shadow">{item.name}</div>
+                      <div class="text-[10px] text-white/80">@{item.username}</div>
+                    </div>
+                    <div class="absolute top-2 right-2 z-10 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      <ArrowUpRight size={16} class="text-white drop-shadow" />
+                    </div>
+                  </a>
+                ))}
+            </div>
+          </div>
+
+          <div class="space-y-4 text-neutral-700 dark:text-neutral-200 leading-relaxed">
+            {aboutParagraphs.map((paragraph, index) => (
+              <p
+                data-aos="fade-up-xs"
+                data-aos-delay={200 + index * 100}
+                data-aos-duration="500"
+                data-aos-once="true"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          <div
+            class="flex flex-wrap gap-3 pt-2"
+            data-aos="fade-up-xs"
+            data-aos-delay="400"
+            data-aos-duration="500"
+            data-aos-once="true"
+          >
+            <Button url={contactButtonUrl}>
+              <Mail size={16} /> {contactButtonLabel}
+            </Button>
+            <Button url={resumeUrl} type="fill">
+              {resumeButtonLabel} <ArrowUpRight size={16} />
+            </Button>
+          </div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">{contactLine}</div>
+        </section>
+
+        <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700"></div>
+
+        <section id="expertise" class="space-y-6">
+          <h2 class="text-3xl font-brand text-neutral-900 dark:text-white">能力地图</h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {[
+              { icon: Code, label: "Spring Boot / 微服务架构" },
+              { icon: Zap, label: "高并发与性能优化" },
+              { icon: Monitor, label: "分布式系统设计" },
+              { icon: Globe, label: "全栈开发（Vue3 / React）" },
+              { icon: Palette, label: "数据库设计与优化" },
+              { icon: Smartphone, label: "DevOps 与 CI/CD" }
+            ].map((item) => (
+              <div class="flex items-center gap-3 px-5 py-4 rounded-xl bg-gradient-to-b from-[#f7f8f0] to-[#f1f2f9] dark:from-gray-900 dark:to-gray-800 border border-primary/10">
+                <item.icon size={22} />
+                <div>{item.label}</div>
               </div>
+            ))}
           </div>
         </section>
 
-        <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-12 mb-12"></div>
-      <section class="experience">
-        <h2
-          id="experience"
-          class="mt-12 mb-4 text-[28px] text-neutral-800  dark:text-neutral-200 font-brand"
-          data-aos="fade-up-xs"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          经历
-        </h2>
-        <div
-          class="px-5 py-10"
-          data-aos="fade-up-xs"
-          data-aos-delay="100"
-          data-aos-duration="600"
-          data-aos-once="true"
-        >
-          {
-            experiences.map((experience, index) => {
-              return (
-                <div
-                  class="pb-10 border-l border-dashed border-gray-200 last:border-l-0 dark:border-neutral-500"
-                  data-aos="fade-up-xs"
-                  data-aos-delay={200 + (index * 100)}
-                  data-aos-duration="500"
-                  data-aos-once="true"
-                >
-                  <AboutExperience
-                    dates={experience.dates}
-                    role={experience.role}
-                    company={experience.company}
-                    description={experience.description}
-                    logo={experience.logo}
-                  />
+        <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700"></div>
+
+        <section id="tool-stack" class="space-y-6">
+          <h2 class="text-3xl font-brand text-neutral-900 dark:text-white">常用工具</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">后端核心技术栈</h3>
+              <div class="flex flex-wrap gap-2">
+                {["Spring Boot", "Spring Cloud", "MyBatis-Plus", "MySQL", "Redis", "RabbitMQ"].map((tech) => (
+                  <span class="px-3 py-1.5 text-sm rounded-lg bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-800/50">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">前端使用</h3>
+              <div class="flex flex-wrap gap-2">
+                {["Vue3", "React", "Astro", "Tailwind CSS"].map((tech) => (
+                  <span class="px-3 py-1.5 text-sm rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/30 dark:to-cyan-950/30 text-blue-700 dark:text-blue-300 border border-blue-200/50 dark:border-blue-800/50">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">开发工具</h3>
+              <div class="flex flex-wrap gap-2">
+                {["Git", "Maven", "Swagger", "JMeter"].map((tech) => (
+                  <span class="px-3 py-1.5 text-sm rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 text-green-700 dark:text-green-300 border border-green-200/50 dark:border-green-800/50">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">运维部署</h3>
+              <div class="flex flex-wrap gap-2">
+                {["Docker", "GitLab CI/CD", "阿里云 OSS", "Prometheus", "Grafana"].map((tech) => (
+                  <span class="px-3 py-1.5 text-sm rounded-lg bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 text-orange-700 dark:text-orange-300 border border-orange-200/50 dark:border-orange-800/50">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold text-neutral-600 dark:text-neutral-400 mb-3">权限框架 & 其他工具</h3>
+              <div class="flex flex-wrap gap-2">
+                {["Spring Security", "Sa-Token", "EasyExcel", "Thumbnailator", "KrpanoSDK"].map((tech) => (
+                  <span class="px-3 py-1.5 text-sm rounded-lg bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-950/30 dark:to-rose-950/30 text-pink-700 dark:text-pink-300 border border-pink-200/50 dark:border-pink-800/50">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="relative bg-white dark:bg-gray-900 border rounded-xl overflow-hidden h-[420px]">
+            <Matter />
+          </div>
+        </section>
+
+        <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700"></div>
+
+        <section id="experience" class="space-y-6">
+          <h2 class="text-3xl font-brand text-neutral-900 dark:text-white">经历</h2>
+          <div class="space-y-8">
+            {experiences.map((experience, index) => (
+              <div
+                class="pb-8 border-l border-dashed border-neutral-200 dark:border-neutral-600 pl-6 last:border-l-0"
+                data-aos="fade-up-xs"
+                data-aos-delay={150 + index * 100}
+                data-aos-duration="500"
+                data-aos-once="true"
+              >
+                <AboutExperience
+                  dates={experience.dates}
+                  role={experience.role}
+                  company={experience.company}
+                  description={experience.description}
+                  logo={experience.logo}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div class="w-full border-b border-dashed border-neutral-200 dark:border-neutral-700"></div>
+
+        <section id="lets-connect" class="space-y-6">
+          <h2 class="text-3xl font-brand text-neutral-900 dark:text-white">保持联系</h2>
+          <p class="text-neutral-700 dark:text-neutral-300 leading-relaxed">
+            我目前正在寻找 Java 后端开发的实习或全职机会。如果您有合适的岗位，或希望交流技术、讨论项目合作，欢迎通过以下方式联系我。也可以在 <a href={githubLink} target="_blank" class="text-indigo-500 underline">GitHub</a> 上查看我的开源项目。我渴望加入技术驱动、富有挑战的团队，持续学习与成长。
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a 
+              href={`mailto:${emailAddress}`}
+              class="group flex items-center gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900/50 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-lg transition-all duration-300"
+            >
+              <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/50 dark:to-purple-950/50 group-hover:scale-110 transition-transform">
+                <Mail size={24} class="text-indigo-600 dark:text-indigo-400" />
+              </div>
+              <div class="flex-1">
+                <div class="text-sm font-semibold text-neutral-600 dark:text-neutral-400">邮箱</div>
+                <div class="text-neutral-900 dark:text-white">{emailAddress}</div>
+              </div>
+              <ArrowUpRight size={20} class="text-neutral-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
+            </a>
+
+            {profile?.phone && (
+              <div class="flex items-center gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900/50">
+                <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50">
+                  <Smartphone size={24} class="text-green-600 dark:text-green-400" />
                 </div>
-              )
-            })
-          }
-        </div>
-      </section>
-        <div class="w-full border-b-1 border-dashed border-b-gray-200 dark:border-b-neutral-700 mt-4 mb-8"></div>
-      <section>
-        <h2
-          id="lets-connect"
-          class="mt-12 mb-4 text-[28px] text-neutral-800  dark:text-neutral-200 font-brand"
-          data-aos="fade-up-xs"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >保持联系</h2>
-        <p
-          class="text-sm leading-6 text-neutral-700 dark:text-neutral-300"
-          data-aos="fade-up-xs"
-          data-aos-delay="100"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          想第一时间体验我做的校园工具或交流学习心得，可以<a
-            href={siteConfig.social.twitter || "#"}
-            target="_blank"
-            class="text-indigo-500 underline">给我留言</a
-          >，也欢迎直接<a href="mailto:hello@lichenkang.dev" class=" underline"
-            >发送邮件</a
-          >，我们一起把点子落地。
-        </p>
-      </section>
+                <div class="flex-1">
+                  <div class="text-sm font-semibold text-neutral-600 dark:text-neutral-400">电话</div>
+                  <div class="text-neutral-900 dark:text-white">{profile.phone}</div>
+                </div>
+              </div>
+            )}
+
+            {!profile?.phone && (
+              <div class="flex items-center gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900/50">
+                <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50">
+                  <Smartphone size={24} class="text-green-600 dark:text-green-400" />
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm font-semibold text-neutral-600 dark:text-neutral-400">电话</div>
+                  <div class="text-neutral-900 dark:text-white">15779197185</div>
+                </div>
+              </div>
+            )}
+
+            <a 
+              href={githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900/50 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg transition-all duration-300"
+            >
+              <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-950/50 dark:to-gray-950/50 group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-slate-700 dark:text-slate-300">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="text-sm font-semibold text-neutral-600 dark:text-neutral-400">GitHub</div>
+                <div class="text-neutral-900 dark:text-white">{githubHandle}</div>
+              </div>
+              <ArrowUpRight size={20} class="text-neutral-400 group-hover:text-slate-600 dark:group-hover:text-slate-400 transition-colors" />
+            </a>
+
+            {profile?.wechat && (
+              <div class="flex items-center gap-4 p-4 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900/50">
+                <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/50 dark:to-teal-950/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6 text-emerald-600 dark:text-emerald-400">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm font-semibold text-neutral-600 dark:text-neutral-400">微信</div>
+                  <div class="text-neutral-900 dark:text-white">{profile.wechat}</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
       </main>
     </div>
   </div>

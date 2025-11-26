@@ -1,50 +1,56 @@
 ---
-import works from "@/collections/works.json";
 import WorkCard from "@/components/cards/WorkCard.astro";
+import { apiClient, type Work } from "@/lib/apiClient";
 
 interface Props {
-  limit?: number; // 限制显示的项目数量
+  limit?: number;
 }
 
-interface Work {
-  name: string;
-  description?: string;
-  image: string;
-  url: string;
-  tags?: string[];
-  video?: string;
-  isShow?: boolean;
+const { limit } = Astro.props as Props;
+
+let works: Work[] = [];
+let worksError: string | null = null;
+
+try {
+  works = await apiClient.fetchWorks();
+} catch (error) {
+  worksError = error instanceof Error ? error.message : "无法加载作品数据";
 }
 
-const { limit } = Astro.props;
-
-// 获取项目列表
-let allWorks = works as Work[];
-
-// 如果指定了 limit，使用 limit
-if (limit !== undefined) {
-  allWorks = works.slice(0, limit) as Work[];
-}
+const visibleWorks = typeof limit === "number" ? works.slice(0, limit) : works;
+const fallbackImage = "/assets/home/gradientshub.jpg";
 ---
 
-<section class="py-8 md:py-8">
+<section class="py-8 md:py-10">
   <div class="space-y-8 md:space-y-10">
-    <!-- 所有项目全宽显示 -->
-    {allWorks
-      .filter(work => work.isShow !== false)
-      .map((work, index) => (
-        <WorkCard
-          name={work.name}
-          description={work.description}
-          image={work.image}
-          url={work.url}
-          tags={work.tags}
-          video={work.video}
-          isShow={work.isShow}
-          layout="featured"
-          index={index}
-        />
-      ))}
+    {worksError && (
+      <div class="text-center text-sm rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-600 dark:border-red-900/40 dark:bg-red-900/20">
+        {worksError}
+      </div>
+    )}
+
+    {!worksError && visibleWorks.length === 0 && (
+      <div class="text-center text-neutral-500 dark:text-neutral-400 rounded-xl border border-dashed border-neutral-200 px-4 py-8 dark:border-neutral-700">
+        暂无作品，请先在后台添加内容。
+      </div>
+    )}
+
+    {!worksError && visibleWorks.length > 0 && (
+      <div class="space-y-10 md:space-y-12">
+        {visibleWorks.map((work, index) => (
+          <WorkCard
+            name={work.name}
+            description={work.description}
+            image={work.imageUrl || fallbackImage}
+            url={work.url}
+            tags={work.tags}
+            video={work.videoUrl}
+            isShow={work.isShow}
+            layout="featured"
+            index={index}
+          />
+        ))}
+      </div>
+    )}
   </div>
 </section>
-

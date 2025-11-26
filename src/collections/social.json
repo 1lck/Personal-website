@@ -1,31 +1,31 @@
 [
 	{
         "id": 1,
-		"name": "代码仓库",
-        "username": "敬请期待",
+		"name": "Github",
+        "username": "1lck",
 		"image": "/assets/social/social-github.jpg",
-		"url": "#"
+		"url": "https://github.com/1lck"
 	},
 
 	{
         "id": 2,
-		"name": "学习手账",
-        "username": "整理中",
+		"name": "微信",
+        "username": "A0517lck",
 		"image": "/assets/social/social-xiaohongshu.jpg",
 		"url": "#"
 	},
 
     {
         "id": 3,
-		"name": "技术随想",
-        "username": "等待补充",
+		"name": "电话",
+        "username": "15779197185",
 		"image": "/assets/social/social-twitter.jpg",
-		"url": "#"
+		"url": "tel:15779197185"
 	},
 
     {
         "id": 4,
-		"name": "资料分享",
+		"name": "博客",
         "username": "整理中",
 		"image": "/assets/social/social-gumroad.jpg",
 		"url": "#"
@@ -59,10 +59,8 @@
     {
         "id": 8,
 		"name": "邮箱",
-        "username": "hello@lichenkang.dev",
+        "username": "2188718831@qq.com",
 		"image": "/assets/social/social-email.jpg",
-		"url": "mailto:hello@lichenkang.dev"
+		"url": "mailto:2188718831@qq.com"
 	}
-
-
 ]

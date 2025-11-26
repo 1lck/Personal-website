@@ -2,6 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import node from "@astrojs/node";
 import { fileURLToPath } from "url";
 import path from "path";
 
@@ -15,6 +16,10 @@ export default defineConfig({
   site: siteUrl,
   base: '/',
   envPrefix: 'PUBLIC_',
+  output: 'server',
+  adapter: node({
+    mode: 'standalone'
+  }),
   vite: {
     plugins: [tailwindcss()],
     resolve: {
@@ -23,10 +28,8 @@ export default defineConfig({
       }
     }
   },
-
   server: {
     port: 5200,
   },
-
   integrations: [mdx(), sitemap()],
 });

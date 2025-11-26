@@ -25,6 +25,10 @@ const {
   target = "_blank"
 } = Astro.props;
 
+// Ensure URL has protocol (add https:// if missing for external URLs)
+// Keep local paths (/, #) and already complete URLs unchanged
+const normalizedUrl = url.match(/^(https?:\/\/|\/|#)/i) ? url : `https://${url}`;
+
 // Generate stable id for each video for precise playback control
 const videoId = `workcard-video-${index}-${name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}`;
 ---
@@ -155,7 +159,7 @@ const videoId = `workcard-video-${index}-${name.replace(/[^a-z0-9]+/gi, '-').toL
 
   <!-- Link overlay for entire card -->
   <a
-    href={url}
+    href={normalizedUrl}
     target={target}
     rel={target === "_blank" ? "noopener noreferrer" : undefined}
     class="absolute inset-0 z-10"

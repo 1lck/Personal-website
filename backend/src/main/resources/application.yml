@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  datasource:
+    url: jdbc:sqlite:${CONTENT_DATA_PATH:storage/data}/portfolio.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.community.dialect.SQLiteDialect
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+content:
+  storage-root: ${CONTENT_STORAGE_ROOT:storage/media}
+  media-base-url: ${CONTENT_MEDIA_BASE_URL:http://localhost:8080/api/files}
+  admin-token: ${CONTENT_ADMIN_TOKEN:my-secret-token-2024}
+  allowed-origins:
+    - ${PUBLIC_APP_ORIGIN:http://localhost:5200}
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: WARN

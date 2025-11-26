@@ -16,7 +16,7 @@
 	],
 	"author": {
 		"name": "Li Chenkang",
-		"email": "hello@lichenkang.dev",
+		"email": "2188718831@qq.com",
 		"url": "https://lichenkang.dev"
 	},
 	"repository": {
@@ -47,10 +47,11 @@
 		"typescript": "^5.4.5",
 		"vite": "^5.2.11"
 	},
-	"dependencies": {
-		"@astrojs/mdx": "^4.3.10",
-		"@astrojs/rss": "^4.0.13",
-		"@astrojs/sitemap": "^3.6.0",
+ "dependencies": {
+    "@astrojs/node": "^8.2.2",
+    "@astrojs/mdx": "^4.3.10",
+    "@astrojs/rss": "^4.0.13",
+    "@astrojs/sitemap": "^3.6.0",
 		"@lucide/astro": "^0.546.0",
 		"@tailwindcss/vite": "^4.1.14",
 		"aos": "^2.3.4",
